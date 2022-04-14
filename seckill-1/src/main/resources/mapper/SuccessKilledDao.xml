@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.seckill.dao.SuccessKilledDao">
+<mapper namespace="com.ljh.dao.SuccessKilledDao">
     <insert id="insertSuccessKilled">
         <!-- 主键冲突 -->
         <!-- mysql insert ignore into 表示如果插入数据主键重复，则忽略插入数据 -->
@@ -29,7 +29,7 @@
     </select>
 
 
-    <resultMap id="BaseResultMap" type="org.seckill.entity.SuccessKilled">
+    <resultMap id="BaseResultMap" type="com.ljh.entity.SuccessKilled">
         <id column="seckill_id" property="seckillId" jdbcType="BIGINT"/>
         <id column="user_phone" property="userPhone" jdbcType="BIGINT"/>
         <result column="state" property="state" jdbcType="INTEGER"/>
@@ -38,25 +38,25 @@
     <sql id="Base_Column_List">
         seckill_id, user_phone, state, create_time
     </sql>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="org.seckill.entity.SuccessKilledKey">
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.ljh.entity.SuccessKilledKey">
         select
         <include refid="Base_Column_List"/>
         from success_killed
         where seckill_id = #{seckillId,jdbcType=BIGINT}
         and user_phone = #{userPhone,jdbcType=BIGINT}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="org.seckill.entity.SuccessKilledKey">
+    <delete id="deleteByPrimaryKey" parameterType="com.ljh.entity.SuccessKilledKey">
     delete from success_killed
     where seckill_id = #{seckillId,jdbcType=BIGINT}
       and user_phone = #{userPhone,jdbcType=BIGINT}
   </delete>
-    <insert id="insert" parameterType="org.seckill.entity.SuccessKilled">
+    <insert id="insert" parameterType="com.ljh.entity.SuccessKilled">
     insert into success_killed (seckill_id, user_phone, state, 
       create_time)
     values (#{seckillId,jdbcType=BIGINT}, #{userPhone,jdbcType=BIGINT}, #{state,jdbcType=TINYINT}, 
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
-    <insert id="insertSelective" parameterType="org.seckill.entity.SuccessKilled">
+    <insert id="insertSelective" parameterType="com.ljh.entity.SuccessKilled">
         insert into success_killed
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="seckillId != null">
@@ -87,7 +87,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="org.seckill.entity.SuccessKilled">
+    <update id="updateByPrimaryKeySelective" parameterType="com.ljh.entity.SuccessKilled">
         update success_killed
         <set>
             <if test="state != null">
@@ -100,7 +100,7 @@
         where seckill_id = #{seckillId,jdbcType=BIGINT}
         and user_phone = #{userPhone,jdbcType=BIGINT}
     </update>
-    <update id="updateByPrimaryKey" parameterType="org.seckill.entity.SuccessKilled">
+    <update id="updateByPrimaryKey" parameterType="com.ljh.entity.SuccessKilled">
     update success_killed
     set state = #{state,jdbcType=TINYINT},
       create_time = #{createTime,jdbcType=TIMESTAMP}

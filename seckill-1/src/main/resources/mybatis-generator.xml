@@ -4,7 +4,6 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
-    <!--<classPathEntry location="E:\apache-maven-3.5.2\repository\com\microsoft\sqlserver\sqljdbc4\4.0\sqljdbc4-4.0.jar"/>-->
     <context id="mysql" targetRuntime="MyBatis3">
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
 
@@ -14,9 +13,9 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/ssm-1"
-                        userId="ljh"
-                        password="123456">
+                        connectionURL="jdbc:mysql://localhost:3306/seckill"
+                        userId="root"
+                        password="root">
         </jdbcConnection>
 
         <javaModelGenerator targetPackage="org.seckill.entity" targetProject="src/main/java">

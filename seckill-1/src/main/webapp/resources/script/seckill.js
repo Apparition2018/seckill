@@ -1,7 +1,7 @@
 // 存放主要交互逻辑js代码
 // javascript 模块化
 // seckill.detail.init(params);
-var seckill = {
+const seckill = {
     // 封装秒杀相关ajax的url
     URL: {
         now: function () {
@@ -25,12 +25,12 @@ var seckill = {
         $.post(seckill.URL.exposer(seckillId), {}, function (result) {
             // 在回调函数中，执行交互流程
             if (result && result['success']) {
-                var exposer = result['data'];
+                const exposer = result['data'];
                 if (exposer['exposed']) {
                     // 开启秒杀
                     // 获取秒杀地址
-                    var md5 = exposer['md5'];
-                    var killUrl = seckill.URL.execution(seckillId, md5);
+                    const md5 = exposer['md5'];
+                    const killUrl = seckill.URL.execution(seckillId, md5);
                     // 绑定一次点击事件，防止多次点击多次发送
                     $('#killBtn').one('click', function () {
                         // 执行秒杀请求
@@ -39,9 +39,9 @@ var seckill = {
                         // 2:发送秒杀请求执行秒杀
                         $.post(killUrl, {}, function (result) {
                             if (result && result['success']) {
-                                var killResult = result['data'];
-                                var state = killResult['state'];
-                                var stateInfo = killResult['stateInfo'];
+                                const killResult = result['data'];
+                                const state = killResult['state'];
+                                const stateInfo = killResult['stateInfo'];
                                 // 3:显示秒杀结果
                                 node.html('<span class="label label-success">' + stateInfo + '</span>');
                             }
@@ -50,9 +50,9 @@ var seckill = {
                     node.show();
                 } else {
                     // 未开启秒杀
-                    var now = exposer['now'];
-                    var start = exposer['start'];
-                    var end = exposer['end'];
+                    const now = exposer['now'];
+                    const start = exposer['start'];
+                    const end = exposer['end'];
                     // 重新计算计时逻辑
                     seckill.countdown(seckillId, now, start, end);
                 }
@@ -65,17 +65,17 @@ var seckill = {
     },
     // 倒计时
     countdown: function (seckillId, nowTime, startTime, endTime) {
-        var seckillBox = $('#seckill-box');
+        const seckillBox = $('#seckill-box');
         // 时间判断
         if (nowTime > endTime) {
             // 秒杀结束
             seckillBox.html('秒杀结束');
         } else if (nowTime < startTime) {
             // 秒杀未开始，计时事件绑定
-            var killTime = new Date(startTime + 1000);
+            const killTime = new Date(startTime + 1000);
             seckillBox.countdown(killTime, function (event) {
                 // 时间格式
-                var format = event.strftime('秒杀倒计时：%D天 %H时 %M分 %S秒');
+                const format = event.strftime('秒杀倒计时：%D天 %H时 %M分 %S秒');
                 seckillBox.html(format);
                 /* 时间完成后回调事件 */
             }).on('finish.countdown', function () {
@@ -93,12 +93,12 @@ var seckill = {
             // 手机验证和登录，计时交互
             // 规划我们的交互流程
             // 在cookie中查找手机号
-            var killPhone = $.cookie('killPhone');
+            const killPhone = $.cookie('killPhone');
             // 验证手机号
             if (!seckill.validatePhone(killPhone)) {
                 // 绑定phone
                 // 控制输出
-                var killPhoneModal = $('#killPhoneModal');
+                const killPhoneModal = $('#killPhoneModal');
                 // 显示弹出层
                 killPhoneModal.modal({
                     // 显示弹出层
@@ -107,7 +107,7 @@ var seckill = {
                     keyboard: false // 不安比键盘事件
                 });
                 $('#killPhoneBtn').click(function () {
-                    var inputPhone = $('#killPhoneKey').val();
+                    const inputPhone = $('#killPhoneKey').val();
                     if (seckill.validatePhone(inputPhone)) {
                         // 电话写入cookie
                         $.cookie('killPhone', inputPhone, {expires: 7, path: '/seckill'});
@@ -120,12 +120,12 @@ var seckill = {
             }
             // 已经登录
             // 计时交互
-            var seckillId = params['seckillId'];
-            var startTime = params['startTime'];
-            var endTime = params['endTime'];
+            const seckillId = params['seckillId'];
+            const startTime = params['startTime'];
+            const endTime = params['endTime'];
             $.get(seckill.URL.now(), {}, function (result) {
                 if (result && result['success']) {
-                    var nowTime = result['data'];
+                    const nowTime = result['data'];
                     // 时间判断，计时交互
                     seckill.countdown(seckillId, nowTime, startTime, endTime)
                 } else {

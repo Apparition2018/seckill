@@ -62,7 +62,7 @@
                     + "</td><td>" + itemVO.price + "</td><td>" + itemVO.stock + "</td><td>" + itemVO.sales + "</td><tr>";
                 $("#container").append(dom);
                 $("#itemDetail" + itemVO.id).on("click", function(e) {
-                    window.location.href="getitem.html?id=" + $(this).data("id");
+                    window.location.href="get-item.html?id=" + $(this).data("id");
                 });
             }
         }

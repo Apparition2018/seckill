@@ -11,7 +11,7 @@ var RobotCreate = function () {
 	            errorClass: 'help-block', // default input error message class
 	            focusInvalid: false, // do not focus the last invalid input
 	            rules: {
-	                telPhone: {
+	                telephone: {
 	                    required: true,
 	                    number: true
 	                },
@@ -31,7 +31,7 @@ var RobotCreate = function () {
 	            },
 
 	            messages: {
-	                telPhone: {
+	                telephone: {
 	                    required: "请输入手机号",
 	                    number: "请输入数字"
 	                },

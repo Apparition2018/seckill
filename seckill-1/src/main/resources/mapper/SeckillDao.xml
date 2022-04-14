@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.seckill.dao.SeckillDao">
+<mapper namespace="com.ljh.dao.SeckillDao">
     <!-- 目的：为DAO接口的方法提供sql语句配置 -->
 
     <update id="reduceNumber">
@@ -39,7 +39,7 @@
     </select>
 
 
-    <resultMap id="BaseResultMap" type="org.seckill.entity.Seckill">
+    <resultMap id="BaseResultMap" type="com.ljh.entity.Seckill">
         <id column="seckill_id" property="seckillId" jdbcType="BIGINT"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="number" property="number" jdbcType="INTEGER"/>
@@ -60,7 +60,7 @@
       delete from seckill
       where seckill_id = #{seckillId,jdbcType=BIGINT}
     </delete>
-    <insert id="insert" parameterType="org.seckill.entity.Seckill">
+    <insert id="insert" parameterType="com.ljh.entity.Seckill">
       insert into seckill (seckill_id, name, number,
         start_time, end_time, create_time
         )
@@ -68,7 +68,7 @@
         #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}
         )
     </insert>
-    <insert id="insertSelective" parameterType="org.seckill.entity.Seckill">
+    <insert id="insertSelective" parameterType="com.ljh.entity.Seckill">
         insert into seckill
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="seckillId != null">
@@ -111,7 +111,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="org.seckill.entity.Seckill">
+    <update id="updateByPrimaryKeySelective" parameterType="com.ljh.entity.Seckill">
         update seckill
         <set>
             <if test="name != null">
@@ -132,7 +132,7 @@
         </set>
         where seckill_id = #{seckillId,jdbcType=BIGINT}
     </update>
-    <update id="updateByPrimaryKey" parameterType="org.seckill.entity.Seckill">
+    <update id="updateByPrimaryKey" parameterType="com.ljh.entity.Seckill">
       update seckill
       set name = #{name,jdbcType=VARCHAR},
         number = #{number,jdbcType=INTEGER},

@@ -8,13 +8,13 @@
     <context id="mysql" targetRuntime="MyBatis3">
         <!-- 数据库链接地址及账号密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/springboot-2"
+                        connectionURL="jdbc:mysql://localhost:3306/seckill2"
                         userId="ljh"
                         password="123456">
         </jdbcConnection>
 
-        <!--  生成DataObject类存放位置 -->
-        <javaModelGenerator targetPackage="com.imooc.dataobject" targetProject="src/main/java">
+        <!--  生成entity类存放位置 -->
+        <javaModelGenerator targetPackage="com.ljh.entity" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
@@ -30,7 +30,7 @@
             type="MIXEDMAPPER"，生成基于注解的Java Model和相应的Mapper对象
             type="XMLMAPPER"，生成SQLMap XML文件盒独立的Mapper接口
         -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.imooc.dao" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.ljh.dao" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
