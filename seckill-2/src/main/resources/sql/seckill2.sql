@@ -11,7 +11,7 @@
  Target Server Version : 80023
  File Encoding         : 65001
 
- Date: 17/04/2022 23:01:22
+ Date: 18/04/2022 00:44:42
 */
 
 SET NAMES utf8mb4;
@@ -35,7 +35,7 @@ CREATE TABLE `item`  (
 -- Records of item
 -- ----------------------------
 INSERT INTO `item` VALUES (1, 'iphone99', 800.00, '最好用的苹果手机', 103, 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3974550569,4161544558&fm=27&gp=0.jpg');
-INSERT INTO `item` VALUES (2, 'iphone8', 600.00, '第二好用的苹果手机', 88, 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1489148828,1224802904&fm=26&gp=0.jpg');
+INSERT INTO `item` VALUES (2, 'iphone8', 600.00, '第二好用的苹果手机', 80, 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1489148828,1224802904&fm=26&gp=0.jpg');
 
 -- ----------------------------
 -- Table structure for item_stock
@@ -51,7 +51,7 @@ CREATE TABLE `item_stock`  (
 -- ----------------------------
 -- Records of item_stock
 -- ----------------------------
-INSERT INTO `item_stock` VALUES (1, 88, 1);
+INSERT INTO `item_stock` VALUES (1, 97, 1);
 INSERT INTO `item_stock` VALUES (2, 200, 2);
 
 -- ----------------------------
@@ -72,14 +72,9 @@ CREATE TABLE `order_info`  (
 -- ----------------------------
 -- Records of order_info
 -- ----------------------------
-INSERT INTO `order_info` VALUES ('2019021800000000', 7, 7, 0, 0, 0, 0);
-INSERT INTO `order_info` VALUES ('2019021800000100', 7, 7, 0, 800, 1, 800);
-INSERT INTO `order_info` VALUES ('2019021800000200', 7, 7, 0, 800, 1, 800);
-INSERT INTO `order_info` VALUES ('2019021800000300', 7, 7, 0, 800, 1, 800);
-INSERT INTO `order_info` VALUES ('2019021800000400', 7, 7, 0, 800, 1, 800);
-INSERT INTO `order_info` VALUES ('2019021800000500', 7, 7, 0, 800, 1, 800);
-INSERT INTO `order_info` VALUES ('2019021800000600', 7, 7, 1, 100, 1, 100);
-INSERT INTO `order_info` VALUES ('2019021800000700', 7, 7, 1, 100, 1, 100);
+INSERT INTO `order_info` VALUES ('2022041800000000', 2, 1, 0, 800, 1, 800);
+INSERT INTO `order_info` VALUES ('2022041800000100', 2, 1, 0, 800, 1, 800);
+INSERT INTO `order_info` VALUES ('2022041800000200', 2, 1, 0, 800, 1, 800);
 
 -- ----------------------------
 -- Table structure for promo
@@ -114,7 +109,7 @@ CREATE TABLE `sequence_info`  (
 -- ----------------------------
 -- Records of sequence_info
 -- ----------------------------
-INSERT INTO `sequence_info` VALUES ('order_info', 8, 1);
+INSERT INTO `sequence_info` VALUES ('order_info', 3, 1);
 
 -- ----------------------------
 -- Table structure for user_info

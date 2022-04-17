@@ -4,6 +4,7 @@ import com.ljh.dao.OrderDOMapper;
 import com.ljh.dao.SequenceDOMapper;
 import com.ljh.entity.OrderDO;
 import com.ljh.entity.SequenceDO;
+import com.ljh.entity.SequenceDOExample;
 import com.ljh.error.BusinessException;
 import com.ljh.error.BusinessErrorEnum;
 import com.ljh.service.ItemService;
@@ -39,7 +40,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public OrderModel createOrder(Integer userId, Integer itemId, Integer promoId, Integer amount) throws BusinessException {
-
         // 1.检验
         // 1.1 下单的商品是否存在，用户是否合法，购买数量是否正确
         ItemModel itemModel = itemService.getItemById(itemId);
@@ -62,11 +62,10 @@ public class OrderServiceImpl implements OrderService {
             }
         }
 
-
-        // 2.落单减库存，支付减库存
+        // 2.减库存方式：①下单减库存；②付款减库存
+        // 这里使用下单减库存
         boolean result = itemService.decreaseStock(itemId, amount);
-        if (!result)
-            throw new BusinessException(BusinessErrorEnum.STOCK_NOT_ENOUGH);
+        if (!result) throw new BusinessException(BusinessErrorEnum.STOCK_NOT_ENOUGH);
 
         // 3.订单入库
         OrderModel orderModel = new OrderModel();
@@ -82,11 +81,11 @@ public class OrderServiceImpl implements OrderService {
         orderModel.setOrderPrice(orderModel.getItemPrice().multiply(new BigDecimal(amount)));
 
         // 生成交易流水号，订单号
-        orderModel.setId(generateOrderNo());
+        orderModel.setId(this.generateOrderNo());
         OrderDO orderDO = this.convertEntityFromModel(orderModel);
         orderDOMapper.insertSelective(orderDO);
 
-        // 加上商品的销量
+        // 商品的销量增加
         itemService.increaseSales(itemId, amount);
 
         // 4.返回前端
@@ -97,15 +96,15 @@ public class OrderServiceImpl implements OrderService {
     String generateOrderNo() {
         // 订单号有16位
         StringBuilder stringBuilder = new StringBuilder();
-        // 前8位为时间信息，年月日
+        // 1.前8位为年月日
         LocalDateTime now = LocalDateTime.now();
         String nowDate = now.format(DateTimeFormatter.ISO_DATE).replace("-", "");
         stringBuilder.append(nowDate);
 
-        // 中间6位为自增序列
-        // 获取当前sequence
+        // 2.中间6位为自增序列
+        // 从序列表 sequence_info 获取
         int sequence;
-        SequenceDO sequenceDO = sequenceDOMapper.getSequenceByName("order_info");
+        SequenceDO sequenceDO = this.selectSequenceDOByName();
         sequence = sequenceDO.getCurrentValue();
         sequenceDO.setCurrentValue(sequenceDO.getCurrentValue() + sequenceDO.getStep());
         sequenceDOMapper.updateByPrimaryKey(sequenceDO);
@@ -115,18 +114,25 @@ public class OrderServiceImpl implements OrderService {
         }
         stringBuilder.append(sequenceStr);
 
-        // 最后2位为分库分表位，暂时写死
+        // 3.最后2位为分库分表位
+        // 比如 userId % 100，这里暂时写死
         stringBuilder.append("00");
 
         return stringBuilder.toString();
+    }
+
+    private SequenceDO selectSequenceDOByName() {
+        SequenceDOExample sequenceDOExample = new SequenceDOExample();
+        sequenceDOExample.createCriteria().andNameEqualTo("order_info");
+        return sequenceDOMapper.selectByExample(sequenceDOExample).get(0);
     }
 
     private OrderDO convertEntityFromModel(OrderModel orderModel) {
         if (orderModel == null) return null;
         OrderDO orderDO = new OrderDO();
         BeanUtils.copyProperties(orderModel, orderDO);
-        orderDO.setItemPrice(orderModel.getItemPrice().doubleValue());
-        orderDO.setOrderPrice(orderModel.getOrderPrice().doubleValue());
+        orderDO.setItemPrice(orderModel.getItemPrice());
+        orderDO.setOrderPrice(orderModel.getOrderPrice());
         return orderDO;
     }
 }

@@ -36,5 +36,5 @@ public interface ItemStockDOMapper {
             "UPDATE item_stock SET stock = stock - #{amount}",
             "WHERE item_id = #{itemId} AND stock >= #{amount}"
     })
-    int decreaseStock(Integer itemId, Integer amount);
+    int decreaseStock(@Param("itemId") Integer itemId, @Param("amount") Integer amount);
 }

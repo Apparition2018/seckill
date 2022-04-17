@@ -17,8 +17,6 @@ import java.util.Map;
 @RestControllerAdvice
 public class BaseController {
 
-    public static final String CONTENT_TYPE_FORMED = "application/x-www-form-urlencoded";
-
     // 定义 @ExceptionHandler 解决未被 Controller 层吸收的 Exception
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.OK)
@@ -29,7 +27,7 @@ public class BaseController {
             responseData.put("errCode", businessException.getErrCode());
             responseData.put("errMsg", businessException.getErrMsg());
         } else {
-            log.error(ex.getMessage());
+            ex.printStackTrace();
             responseData.put("errCode", BusinessErrorEnum.UNKNOWN_ERROR.getErrCode());
             responseData.put("errMsg", BusinessErrorEnum.UNKNOWN_ERROR.getErrMsg());
         }

@@ -32,6 +32,6 @@ public interface ItemDOMapper {
 
     int updateByPrimaryKey(ItemDO row);
 
-    @Update("UPDATE item SET sales = sales +#{amount} WHERE id = #{id}")
-    int increaseSales(Integer itemId, Integer amount);
+    @Update("UPDATE item SET sales = sales + #{amount} WHERE id = #{id}")
+    int increaseSales(@Param("id") Integer id, @Param("amount") Integer amount);
 }

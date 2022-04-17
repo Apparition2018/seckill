@@ -101,22 +101,16 @@
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
-    <insert id="insert" parameterType="com.ljh.entity.ItemStockDO">
-        <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
-        insert into item_stock (id, stock, item_id
-        )
-        values (#{id,jdbcType=INTEGER}, #{stock,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER}
-        )
+    <insert id="insert" parameterType="com.ljh.entity.ItemStockDO" keyProperty="id" useGeneratedKeys="true">
+        insert into item_stock (id, stock, item_id)
+        values (#{id,jdbcType=INTEGER}, #{stock,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER})
     </insert>
-    <insert id="insertSelective" parameterType="com.ljh.entity.ItemStockDO">
-        <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
+    <insert id="insertSelective" parameterType="com.ljh.entity.ItemStockDO" keyProperty="id" useGeneratedKeys="true">
         insert into item_stock
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            id,
+            <if test="id != null">
+                id,
+            </if>
             <if test="stock != null">
                 stock,
             </if>
@@ -125,7 +119,9 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            #{id,jdbcType=INTEGER},
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
             <if test="stock != null">
                 #{stock,jdbcType=INTEGER},
             </if>

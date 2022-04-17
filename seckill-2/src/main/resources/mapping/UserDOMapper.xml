@@ -105,7 +105,7 @@
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
-    <insert id="insert" parameterType="com.ljh.entity.UserDO">
+    <insert id="insert" parameterType="com.ljh.entity.UserDO" keyProperty="id" useGeneratedKeys="true">
         insert into user_info (id, name, gender,
                                age, telephone, register_mode,
                                third_party_id)

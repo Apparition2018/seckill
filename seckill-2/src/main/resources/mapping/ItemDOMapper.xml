@@ -104,24 +104,18 @@
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
-    <insert id="insert" parameterType="com.ljh.entity.ItemDO">
-        <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
+    <insert id="insert" parameterType="com.ljh.entity.ItemDO" keyProperty="id" useGeneratedKeys="true">
         insert into item (id, title, price,
-        description, sales, img_url
-        )
+                          description, sales, img_url)
         values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL},
-        #{description,jdbcType=VARCHAR}, #{sales,jdbcType=INTEGER}, #{imgUrl,jdbcType=VARCHAR}
-        )
+                #{description,jdbcType=VARCHAR}, #{sales,jdbcType=INTEGER}, #{imgUrl,jdbcType=VARCHAR})
     </insert>
-    <insert id="insertSelective" parameterType="com.ljh.entity.ItemDO">
-        <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
+    <insert id="insertSelective" parameterType="com.ljh.entity.ItemDO" keyProperty="id" useGeneratedKeys="true">
         insert into item
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            id,
+            <if test="id != null">
+                id,
+            </if>
             <if test="title != null">
                 title,
             </if>
@@ -139,7 +133,9 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            #{id,jdbcType=INTEGER},
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
             <if test="title != null">
                 #{title,jdbcType=VARCHAR},
             </if>

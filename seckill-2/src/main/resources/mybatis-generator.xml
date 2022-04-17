@@ -32,21 +32,11 @@
 
 <!--        <table tableName="user_info" domainObjectName="UserDO"/>-->
 <!--        <table tableName="user_password" domainObjectName="UserPasswordDO"/>-->
+<!--        <table tableName="item" domainObjectName="ItemDO"/>-->
+<!--        <table tableName="item_stock" domainObjectName="ItemStockDO"/>-->
+<!--        <table tableName="order_info" domainObjectName="OrderDO"/>-->
 
-        <table tableName="item" domainObjectName="ItemDO">
-            <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()"/>
-        </table>
-        <table tableName="item_stock" domainObjectName="ItemStockDO">
-            <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()"/>
-        </table>
-
-<!--        <table tableName="order_info" domainObjectName="OrderDO" enableCountByExample="false"-->
-<!--               enableUpdateByExample="false" enableDeleteByExample="false"-->
-<!--               enableSelectByExample="false" selectByExampleQueryId="false"/>-->
-
-<!--        <table tableName="sequence_info" domainObjectName="SequenceDO" enableCountByExample="false"-->
-<!--               enableUpdateByExample="false" enableDeleteByExample="false"-->
-<!--               enableSelectByExample="false" selectByExampleQueryId="false"/>-->
+        <table tableName="sequence_info" domainObjectName="SequenceDO"/>
 
 <!--        <table tableName="promo" domainObjectName="PromoDO" enableCountByExample="false"-->
 <!--               enableUpdateByExample="false" enableDeleteByExample="false"-->
