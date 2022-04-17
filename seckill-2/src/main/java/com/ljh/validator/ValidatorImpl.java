@@ -13,6 +13,11 @@ public class ValidatorImpl implements InitializingBean {
 
     private Validator validator;
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        this.validator = Validation.buildDefaultValidatorFactory().getValidator();
+    }
+
     /**
      * 实现校验方法并返回校验结果
      */
@@ -28,10 +33,5 @@ public class ValidatorImpl implements InitializingBean {
             });
         }
         return result;
-    }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        this.validator = Validation.buildDefaultValidatorFactory().getValidator();
     }
 }

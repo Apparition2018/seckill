@@ -10,6 +10,9 @@ public interface UserService {
      */
     UserModel getUserById(Integer id);
 
+    /**
+     * 用户注册
+     */
     void register(UserModel userModel) throws BusinessException;
 
     /**

@@ -127,13 +127,12 @@ CREATE TABLE `user_info` (
   `third_party_id` varchar(64) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `telphone_unique_index` (`telephone`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_info
 -- ----------------------------
 INSERT INTO `user_info` VALUES ('1', '第一个用户', '1', '30', '13521234859', 'phone', '');
-INSERT INTO `user_info` VALUES ('7', 'teambition', '1', '20', '13612345678', 'phone', '');
 
 -- ----------------------------
 -- Table structure for `user_password`
@@ -144,10 +143,9 @@ CREATE TABLE `user_password` (
   `encrypt_password` varchar(128) NOT NULL DEFAULT '',
   `user_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_password
 -- ----------------------------
 INSERT INTO `user_password` VALUES ('1', 'ddlsjfjfjfjlf', '1');
-INSERT INTO `user_password` VALUES ('4', '4QrcOUm6Wau+VuBX8g+IPg==', '7');

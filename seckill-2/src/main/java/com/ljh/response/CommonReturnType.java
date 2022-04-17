@@ -1,5 +1,10 @@
 package com.ljh.response;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class CommonReturnType {
     /**
      * 返回 success / fail
@@ -20,21 +25,5 @@ public class CommonReturnType {
         type.setStatus(status);
         type.setData(result);
         return type;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
     }
 }

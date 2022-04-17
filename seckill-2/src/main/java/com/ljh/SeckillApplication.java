@@ -27,7 +27,7 @@ public class SeckillApplication {
         this.userDOMapper = userDOMapper;
     }
 
-    @RequestMapping("/")
+    @RequestMapping
     public String home() {
         UserDO userDO = userDOMapper.selectByPrimaryKey(1);
         if (userDO == null) {

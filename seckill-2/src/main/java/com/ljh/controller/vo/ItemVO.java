@@ -1,4 +1,4 @@
-package com.ljh.controller.viewobject;
+package com.ljh.controller.vo;
 
 import lombok.Data;
 

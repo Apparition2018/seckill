@@ -1,7 +1,7 @@
 package com.ljh.controller;
 
 import com.ljh.error.BusinessException;
-import com.ljh.error.EmBusinessError;
+import com.ljh.error.BusinessErrorEnum;
 import com.ljh.response.CommonReturnType;
 import com.ljh.service.OrderService;
 import com.ljh.service.model.OrderModel;
@@ -34,7 +34,7 @@ public class OrderController extends BaseController {
                                         @RequestParam(name = "promoId", required = false) Integer promoId) throws BusinessException {
         Boolean isLogin = (Boolean) httpServletRequest.getSession().getAttribute("IS_LOGIN");
         if (isLogin == null || !isLogin)
-            throw new BusinessException(EmBusinessError.USER_NOT_LOGIN, "用户还未登录，不能下单");
+            throw new BusinessException(BusinessErrorEnum.USER_NOT_LOGIN, "用户还未登录，不能下单");
         // 获取用户的登录信息
         UserModel userModel = (UserModel) httpServletRequest.getSession().getAttribute("LOGIN_USER");
         OrderModel orderModel = orderService.createOrder(userModel.getId(), itemId, promoId, amount);

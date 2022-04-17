@@ -5,7 +5,7 @@ import com.ljh.dao.SequenceDOMapper;
 import com.ljh.entity.OrderDO;
 import com.ljh.entity.SequenceDO;
 import com.ljh.error.BusinessException;
-import com.ljh.error.EmBusinessError;
+import com.ljh.error.BusinessErrorEnum;
 import com.ljh.service.ItemService;
 import com.ljh.service.OrderService;
 import com.ljh.service.UserService;
@@ -44,21 +44,21 @@ public class OrderServiceImpl implements OrderService {
         // 1.1 下单的商品是否存在，用户是否合法，购买数量是否正确
         ItemModel itemModel = itemService.getItemById(itemId);
         if (itemModel == null)
-            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "商品信息不存在");
+            throw new BusinessException(BusinessErrorEnum.PARAMETER_VALIDATION_ERROR, "商品信息不存在");
         UserModel userModel = userService.getUserById(userId);
         if (userModel == null)
-            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "用户信息不存在");
+            throw new BusinessException(BusinessErrorEnum.PARAMETER_VALIDATION_ERROR, "用户信息不存在");
         if (amount <= 0 || amount > 99)
-            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "数量信息不正确");
+            throw new BusinessException(BusinessErrorEnum.PARAMETER_VALIDATION_ERROR, "数量信息不正确");
 
         // 1.2 校验活动信息
         if (promoId != null) {
             // 1.2.1 校验对应活动是否存在这个适用商品
             if (promoId.intValue() != itemModel.getPromoModel().getId()) {
-                throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "活动信息不正确");
+                throw new BusinessException(BusinessErrorEnum.PARAMETER_VALIDATION_ERROR, "活动信息不正确");
                 // 1.2.2 校验活动是否正在进行中
             } else if (itemModel.getPromoModel().getStatus() != 2) {
-                throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "活动还未开始");
+                throw new BusinessException(BusinessErrorEnum.PARAMETER_VALIDATION_ERROR, "活动还未开始");
             }
         }
 
@@ -66,7 +66,7 @@ public class OrderServiceImpl implements OrderService {
         // 2.落单减库存，支付减库存
         boolean result = itemService.decreaseStock(itemId, amount);
         if (!result)
-            throw new BusinessException(EmBusinessError.STOCK_NOT_ENOUGH);
+            throw new BusinessException(BusinessErrorEnum.STOCK_NOT_ENOUGH);
 
         // 3.订单入库
         OrderModel orderModel = new OrderModel();

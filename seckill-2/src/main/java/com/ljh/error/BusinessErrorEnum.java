@@ -1,6 +1,11 @@
 package com.ljh.error;
 
-public enum EmBusinessError implements CommonError {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
+public enum BusinessErrorEnum implements CommonError {
 
     // 1*：通用错误
     PARAMETER_VALIDATION_ERROR(10001, "参数不合法"),
@@ -14,23 +19,8 @@ public enum EmBusinessError implements CommonError {
     // 3*：交易信息错误
     STOCK_NOT_ENOUGH(30001, "库存不足");
 
-    EmBusinessError(int errCode, String errMsg) {
-        this.errCode = errCode;
-        this.errMsg = errMsg;
-    }
-
     private final int errCode;
     private String errMsg;
-
-    @Override
-    public int getErrCode() {
-        return this.errCode;
-    }
-
-    @Override
-    public String getErrMsg() {
-        return this.errMsg;
-    }
 
     @Override
     public CommonError setErrMsg(String errMsg) {

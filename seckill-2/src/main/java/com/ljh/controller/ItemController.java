@@ -1,6 +1,6 @@
 package com.ljh.controller;
 
-import com.ljh.controller.viewobject.ItemVO;
+import com.ljh.controller.vo.ItemVO;
 import com.ljh.error.BusinessException;
 import com.ljh.response.CommonReturnType;
 import com.ljh.service.ItemService;

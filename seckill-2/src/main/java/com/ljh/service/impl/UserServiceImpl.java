@@ -6,8 +6,8 @@ import com.ljh.entity.UserDO;
 import com.ljh.entity.UserDOExample;
 import com.ljh.entity.UserPasswordDO;
 import com.ljh.entity.UserPasswordDOExample;
+import com.ljh.error.BusinessErrorEnum;
 import com.ljh.error.BusinessException;
-import com.ljh.error.EmBusinessError;
 import com.ljh.service.UserService;
 import com.ljh.service.model.UserModel;
 import com.ljh.validator.ValidationResult;
@@ -43,23 +43,18 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void register(UserModel userModel) throws BusinessException {
         if (userModel == null)
-            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
-//        if (StringUtils.isEmpty(userModel.getName())
-//                || userModel.getGender() == null
-//                || userModel.getAge() == null
-//                || StringUtils.isEmpty(userModel.getTelephone())) {
-//            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
-//        }
+            throw new BusinessException(BusinessErrorEnum.PARAMETER_VALIDATION_ERROR);
+
         ValidationResult result = validator.validate(userModel);
         if (result.isHasErrors())
-            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, result.getErrMsg());
+            throw new BusinessException(BusinessErrorEnum.PARAMETER_VALIDATION_ERROR, result.getErrMsg());
 
         // model → entity
         UserDO userDO = this.convertEntityFromModel(userModel);
         try {
             userDOMapper.insertSelective(userDO);
         } catch (DuplicateKeyException ex) {
-            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "手机号已重复注册");
+            throw new BusinessException(BusinessErrorEnum.PARAMETER_VALIDATION_ERROR, "手机号已重复注册");
         }
 
         userModel.setId(userDO.getId());
@@ -74,21 +69,20 @@ public class UserServiceImpl implements UserService {
         UserDOExample userDOExample = new UserDOExample();
         userDOExample.createCriteria().andTelephoneEqualTo(telephone);
         UserDO userDO = userDOMapper.selectByExample(userDOExample).get(0);
-        if (userDO == null)
-            throw new BusinessException(EmBusinessError.USER_LOGIN_FAIL);
+        if (userDO == null) throw new BusinessException(BusinessErrorEnum.USER_LOGIN_FAIL);
         UserPasswordDO userPasswordDO = this.selectByUserId(userDO.getId());
         UserModel userModel = this.convertModelFromEntity(userDO, userPasswordDO);
 
-        // 比对用户信息内加密的密码是否和传输进来的密码相匹配
+        // 验证密码是否正确
         if (!StringUtils.equals(encryptPassword, userModel.getEncryptPassword()))
-            throw new BusinessException(EmBusinessError.USER_LOGIN_FAIL);
+            throw new BusinessException(BusinessErrorEnum.USER_LOGIN_FAIL);
 
         return userModel;
     }
 
     private UserPasswordDO selectByUserId(Integer userId) {
         UserPasswordDOExample userPasswordDOExample = new UserPasswordDOExample();
-        userPasswordDOExample.createCriteria().andIdEqualTo(userId);
+        userPasswordDOExample.createCriteria().andUserIdEqualTo(userId);
         return userPasswordDOMapper.selectByExample(userPasswordDOExample).get(0);
     }
 

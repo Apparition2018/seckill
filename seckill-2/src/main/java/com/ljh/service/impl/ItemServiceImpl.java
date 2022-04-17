@@ -5,7 +5,7 @@ import com.ljh.dao.ItemStockDOMapper;
 import com.ljh.entity.ItemDO;
 import com.ljh.entity.ItemStockDO;
 import com.ljh.error.BusinessException;
-import com.ljh.error.EmBusinessError;
+import com.ljh.error.BusinessErrorEnum;
 import com.ljh.service.ItemService;
 import com.ljh.service.PromoService;
 import com.ljh.service.model.ItemModel;
@@ -40,7 +40,7 @@ public class ItemServiceImpl implements ItemService {
     public ItemModel createItem(ItemModel itemModel) throws BusinessException {
         ValidationResult result = validator.validate(itemModel);
         if (result.isHasErrors())
-            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
+            throw new BusinessException(BusinessErrorEnum.PARAMETER_VALIDATION_ERROR);
 
         // model → entity
         ItemDO itemDO = this.convertEntityFromModel(itemModel);
