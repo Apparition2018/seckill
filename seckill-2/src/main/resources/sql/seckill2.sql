@@ -85,8 +85,8 @@ DROP TABLE IF EXISTS `promo`;
 CREATE TABLE `promo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `promo_name` varchar(255) NOT NULL DEFAULT '',
-  `start_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `end_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `start_date` datetime NOT NULL,
+  `end_date` datetime NOT NULL,
   `item_id` int(11) NOT NULL DEFAULT '0',
   `promo_item_price` double NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
@@ -132,8 +132,8 @@ CREATE TABLE `user_info` (
 -- ----------------------------
 -- Records of user_info
 -- ----------------------------
-INSERT INTO `user_info` VALUES ('1', '第一个用户', '1', '30', '13521234859', 'byPhone', '');
-INSERT INTO `user_info` VALUES ('7', 'teambition', '1', '20', '13612345678', 'byPhone', '');
+INSERT INTO `user_info` VALUES ('1', '第一个用户', '1', '30', '13521234859', 'phone', '');
+INSERT INTO `user_info` VALUES ('7', 'teambition', '1', '20', '13612345678', 'phone', '');
 
 -- ----------------------------
 -- Table structure for `user_password`

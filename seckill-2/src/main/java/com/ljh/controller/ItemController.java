@@ -7,7 +7,10 @@ import com.ljh.service.ItemService;
 import com.ljh.service.model.ItemModel;
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.BeanUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -15,7 +18,6 @@ import java.util.stream.Collectors;
 
 @RestController("/item")
 @RequestMapping("/item")
-@CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
 public class ItemController extends BaseController {
 
     private final ItemService itemService;

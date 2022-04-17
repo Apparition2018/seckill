@@ -91,9 +91,8 @@ public class SeckillServiceImpl implements SeckillService {
     @Override
     @Transactional
     public SeckillExecution executeSeckill(long seckillId, long userPhone, String md5) throws SeckillException {
-        if (md5 == null || !md5.equals(getMD5(seckillId))) {
+        if (md5 == null || !md5.equals(getMD5(seckillId)))
             throw new SeckillException("seckill data rewrite");
-        }
         // 执行秒杀逻辑:减库存 + 记录购买行为
         Date nowTime = new Date();
 
@@ -126,9 +125,8 @@ public class SeckillServiceImpl implements SeckillService {
 
     @Override
     public SeckillExecution executeSeckillProcedure(long seckillId, long userPhone, String md5) throws SeckillException {
-        if (md5 == null || !md5.equals(getMD5(seckillId))) {
+        if (md5 == null || !md5.equals(getMD5(seckillId)))
             throw new SeckillException("seckill data rewrite");
-        }
         Date killTime = new Date();
         Map<String, Object> map = new HashMap<>();
         map.put("seckillId", seckillId);

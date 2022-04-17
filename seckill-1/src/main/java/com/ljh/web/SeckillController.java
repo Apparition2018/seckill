@@ -1,6 +1,8 @@
 package com.ljh.web;
 
 import com.ljh.dto.Exposer;
+import com.ljh.dto.SeckillExecution;
+import com.ljh.dto.SeckillResult;
 import com.ljh.entity.Seckill;
 import com.ljh.enums.SeckillStatEnum;
 import com.ljh.exception.RepeatKillException;
@@ -8,8 +10,6 @@ import com.ljh.exception.SeckillCloseException;
 import com.ljh.exception.SeckillException;
 import com.ljh.service.SeckillService;
 import lombok.extern.slf4j.Slf4j;
-import com.ljh.dto.SeckillExecution;
-import com.ljh.dto.SeckillResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -41,13 +41,9 @@ public class SeckillController {
 
     @RequestMapping(value = "/{seckillId}/detail", method = RequestMethod.GET)
     public String detail(@PathVariable("seckillId") Long seckillId, Model model) {
-        if (seckillId == null) {
-            return "redirect:/seckill/list";
-        }
+        if (seckillId == null) return "redirect:/seckill/list";
         Seckill seckill = seckillService.getById(seckillId);
-        if (seckill == null) {
-            return "forward:/seckill/list";
-        }
+        if (seckill == null) return "forward:/seckill/list";
         model.addAttribute("seckill", seckill);
         return "detail";
     }
@@ -77,9 +73,8 @@ public class SeckillController {
                                                    @PathVariable("md5") String md5,
                                                    @CookieValue(value = "killPhone", required = false) Long phone) {
         // 可使用 springmvc valid，这里不使用
-        if (phone == null) {
+        if (phone == null)
             return new SeckillResult<>(false, "未注册");
-        }
         try {
             // 存储过程调用
             SeckillExecution execution = seckillService.executeSeckillProcedure(seckillId, phone, md5);

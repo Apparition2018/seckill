@@ -6,15 +6,11 @@
         <groupId>com.ljh</groupId>
         <artifactId>seckill</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/>
     </parent>
     <artifactId>seckill-2</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <dependencies>
-        <!-- 2.0版本的 spring-boot-starter-web 包含了
-            hibernate-validator:6.0.12.Final 包含了
-            javax.validation:validation-api:2.0.1.Final -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -34,10 +30,6 @@
             <version>${druid.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-        <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
             <version>${joda-time.version}</version>
@@ -47,23 +39,20 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <configuration>
+                    <fork>true</fork>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
                 <version>${mybatis-generator.version}</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.mybatis.generator</groupId>
-                        <artifactId>mybatis-generator-core</artifactId>
-                        <version>${mybatis-generator.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>mysql</groupId>
-                        <artifactId>mysql-connector-java</artifactId>
-                    </dependency>
-                </dependencies>
                 <executions>
                     <execution>
-                        <id>mybatis generator</id>
+                        <id>Generate MyBatis Artifacts</id>
                         <phase>package</phase>
                         <goals>
                             <goal>generate</goal>
@@ -71,22 +60,19 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <!-- 允许移动生成的文件 -->
                     <verbose>true</verbose>
-                    <!-- 允许自动覆盖文件，生产设置建议设置成false -->
-                    <overwrite>false</overwrite>
+                    <overwrite>true</overwrite>
                     <configurationFile>
-                        src\main\resources\mybatis-generator.xml
+                        src/main/resources/mybatis-generator.xml
                     </configurationFile>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>${mysql.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

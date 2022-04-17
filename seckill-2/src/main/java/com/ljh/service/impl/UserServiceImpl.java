@@ -3,7 +3,9 @@ package com.ljh.service.impl;
 import com.ljh.dao.UserDOMapper;
 import com.ljh.dao.UserPasswordDOMapper;
 import com.ljh.entity.UserDO;
+import com.ljh.entity.UserDOExample;
 import com.ljh.entity.UserPasswordDO;
+import com.ljh.entity.UserPasswordDOExample;
 import com.ljh.error.BusinessException;
 import com.ljh.error.EmBusinessError;
 import com.ljh.service.UserService;
@@ -33,16 +35,15 @@ public class UserServiceImpl implements UserService {
     public UserModel getUserById(Integer id) {
         UserDO userDO = userDOMapper.selectByPrimaryKey(id);
         if (userDO == null) return null;
-        UserPasswordDO userPasswordDO = userPasswordDOMapper.selectByUserId(userDO.getId());
+        UserPasswordDO userPasswordDO = this.selectByUserId(userDO.getId());
         return this.convertModelFromEntity(userDO, userPasswordDO);
     }
 
     @Override
     @Transactional
     public void register(UserModel userModel) throws BusinessException {
-        if (userModel == null) {
+        if (userModel == null)
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
-        }
 //        if (StringUtils.isEmpty(userModel.getName())
 //                || userModel.getGender() == null
 //                || userModel.getAge() == null
@@ -70,10 +71,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserModel validateLogin(String telephone, String encryptPassword) throws BusinessException {
         // 通过用户的手机获取用户信息
-        UserDO userDO = userDOMapper.selectByTelphone(telephone);
+        UserDOExample userDOExample = new UserDOExample();
+        userDOExample.createCriteria().andTelephoneEqualTo(telephone);
+        UserDO userDO = userDOMapper.selectByExample(userDOExample).get(0);
         if (userDO == null)
             throw new BusinessException(EmBusinessError.USER_LOGIN_FAIL);
-        UserPasswordDO userPasswordDO = userPasswordDOMapper.selectByUserId(userDO.getId());
+        UserPasswordDO userPasswordDO = this.selectByUserId(userDO.getId());
         UserModel userModel = this.convertModelFromEntity(userDO, userPasswordDO);
 
         // 比对用户信息内加密的密码是否和传输进来的密码相匹配
@@ -81,6 +84,12 @@ public class UserServiceImpl implements UserService {
             throw new BusinessException(EmBusinessError.USER_LOGIN_FAIL);
 
         return userModel;
+    }
+
+    private UserPasswordDO selectByUserId(Integer userId) {
+        UserPasswordDOExample userPasswordDOExample = new UserPasswordDOExample();
+        userPasswordDOExample.createCriteria().andIdEqualTo(userId);
+        return userPasswordDOMapper.selectByExample(userPasswordDOExample).get(0);
     }
 
     private UserPasswordDO convertUserPasswordDOFromModel(UserModel userModel) {

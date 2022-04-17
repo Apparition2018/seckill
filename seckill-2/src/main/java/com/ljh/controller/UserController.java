@@ -8,7 +8,10 @@ import com.ljh.response.CommonReturnType;
 import com.ljh.service.UserService;
 import com.ljh.service.model.UserModel;
 import org.springframework.beans.BeanUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import sun.misc.BASE64Encoder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +23,6 @@ import java.util.Random;
 
 @RestController("user")
 @RequestMapping("/user")
-@CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
 public class UserController extends BaseController {
 
     private final UserService userService;
@@ -71,7 +73,7 @@ public class UserController extends BaseController {
         userModel.setGender(new Byte(String.valueOf(gender.intValue())));
         userModel.setAge(age);
         userModel.setTelephone(telephone);
-        userModel.setRegisterMode("byPhone");
+        userModel.setRegisterMode("phone");
         userModel.setEncryptPassword(this.encodeByMd5(password));
 
         userService.register(userModel);

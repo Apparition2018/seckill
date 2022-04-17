@@ -6,7 +6,6 @@
         <groupId>com.ljh</groupId>
         <artifactId>seckill</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/>
     </parent>
     <artifactId>seckill-1</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -117,10 +116,17 @@
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
                 <version>${mybatis-generator.version}</version>
+                <executions>
+                    <execution>
+                        <id>Generate MyBatis Artifacts</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
-                    <!-- 允许移动生成的文件 -->
                     <verbose>true</verbose>
-                    <!-- 允许自动覆盖文件，生产设置建议设置成false -->
                     <overwrite>false</overwrite>
                     <configurationFile>
                         ${basedir}/src/main/resources/mybatis-generator.xml

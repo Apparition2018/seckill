@@ -8,27 +8,29 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <modules>
-        <!-- Java高并发秒杀API -->
+        <!-- 6001：Java高并发秒杀API -->
         <module>seckill-1</module>
-        <!-- SpringBoot构建电商基础秒杀项目 -->
+        <!-- 6002：SpringBoot构建电商基础秒杀项目 -->
         <module>seckill-2</module>
     </modules>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
+        <!-- dependencies -->
         <spring-boot.version>2.6.6</spring-boot.version>
+        <mysql.version>8.0.28</mysql.version>
         <c3p0.version>0.9.5.5</c3p0.version>
         <mybatis.version>3.5.9</mybatis.version>
         <mybatis-spring.version>2.0.7</mybatis-spring.version>
         <protostuff.version>1.8.0</protostuff.version>
         <commons-collections4.version>4.4</commons-collections4.version>
-        <mybatis-generator.version>1.4.1</mybatis-generator.version>
         <mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
         <druid.version>1.2.9</druid.version>
         <joda-time.version>2.10.14</joda-time.version>
+        <!-- plugins -->
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <mybatis-generator.version>1.4.1</mybatis-generator.version>
     </properties>
 
     <dependencies>
@@ -36,6 +38,10 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -63,13 +69,14 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <fork>true</fork>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
 </project>

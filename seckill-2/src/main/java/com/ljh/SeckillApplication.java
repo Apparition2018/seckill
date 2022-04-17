@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 @MapperScan("com.ljh.dao")
 public class SeckillApplication {
 
+    public static void main(String[] args) {
+        System.out.println("Hello World!");
+        SpringApplication.run(SeckillApplication.class, args);
+    }
+
     private final UserDOMapper userDOMapper;
 
     public SeckillApplication(UserDOMapper userDOMapper) {
@@ -30,10 +35,5 @@ public class SeckillApplication {
         } else {
             return userDO.getName();
         }
-    }
-
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
-        SpringApplication.run(SeckillApplication.class, args);
     }
 }
