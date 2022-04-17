@@ -132,13 +132,14 @@
         $("#price").text(g_itemVO.price);
         $("#imgUrl").attr("src", g_itemVO.imgUrl);
         $("#sales").text(g_itemVO.sales);
-        if (g_itemVO.promoStatus === 1) {
+        if (g_itemVO.promoStatus === 0){
+            $("#promoStartDateContainer").hide();
+            $("#promoPriceContainer").hide();
+        } else if (g_itemVO.promoStatus === 1) {
             // 秒杀活动还未开始
             let startTime = g_itemVO.startDate.replace(new RegExp("-", "gm"), "/");
             startTime = (new Date(startTime)).getTime();
             const nowTime = Date.parse(new Date());
-            console.log(startTime);
-            console.log(nowTime);
             const delta = (startTime - nowTime) / 1000;
 
             if (delta <= 0) {

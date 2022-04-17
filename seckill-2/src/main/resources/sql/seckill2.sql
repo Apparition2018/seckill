@@ -11,7 +11,7 @@
  Target Server Version : 80023
  File Encoding         : 65001
 
- Date: 18/04/2022 00:44:42
+ Date: 18/04/2022 01:05:11
 */
 
 SET NAMES utf8mb4;
@@ -63,18 +63,18 @@ CREATE TABLE `order_info`  (
   `user_id` int(0) NOT NULL DEFAULT 0,
   `item_id` int(0) NOT NULL DEFAULT 0,
   `promo_id` int(0) NOT NULL DEFAULT 0,
-  `item_price` double NOT NULL DEFAULT 0,
+  `item_price` decimal(10, 2) NOT NULL DEFAULT 0.00,
   `amount` int(0) NOT NULL DEFAULT 0,
-  `order_price` double NOT NULL DEFAULT 0,
+  `order_price` decimal(10, 2) NOT NULL DEFAULT 0.00,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of order_info
 -- ----------------------------
-INSERT INTO `order_info` VALUES ('2022041800000000', 2, 1, 0, 800, 1, 800);
-INSERT INTO `order_info` VALUES ('2022041800000100', 2, 1, 0, 800, 1, 800);
-INSERT INTO `order_info` VALUES ('2022041800000200', 2, 1, 0, 800, 1, 800);
+INSERT INTO `order_info` VALUES ('2022041800000000', 2, 1, 0, 800.00, 1, 800.00);
+INSERT INTO `order_info` VALUES ('2022041800000100', 2, 1, 0, 800.00, 1, 800.00);
+INSERT INTO `order_info` VALUES ('2022041800000200', 2, 1, 0, 800.00, 1, 800.00);
 
 -- ----------------------------
 -- Table structure for promo
@@ -86,14 +86,14 @@ CREATE TABLE `promo`  (
   `start_date` datetime(0) NOT NULL,
   `end_date` datetime(0) NOT NULL,
   `item_id` int(0) NOT NULL DEFAULT 0,
-  `promo_item_price` double NOT NULL DEFAULT 0,
+  `promo_item_price` decimal(10, 2) NOT NULL DEFAULT 0.00,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of promo
 -- ----------------------------
-INSERT INTO `promo` VALUES (1, 'iphone4抢购活动', '2019-02-18 02:32:00', '2019-02-20 00:00:00', 7, 100);
+INSERT INTO `promo` VALUES (1, 'iphone8抢购活动', '2022-04-18 00:00:00', '2022-04-19 00:00:00', 2, 100.00);
 
 -- ----------------------------
 -- Table structure for sequence_info

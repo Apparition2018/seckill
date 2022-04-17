@@ -111,7 +111,6 @@ public class ItemServiceImpl implements ItemService {
         if (itemModel == null) return null;
         ItemDO itemDO = new ItemDO();
         BeanUtils.copyProperties(itemModel, itemDO);
-        itemDO.setPrice(itemModel.getPrice());
         return itemDO;
     }
 
@@ -126,7 +125,6 @@ public class ItemServiceImpl implements ItemService {
     private ItemModel convertModelFromEntity(ItemDO itemDO, ItemStockDO itemStockDO) {
         ItemModel itemModel = new ItemModel();
         BeanUtils.copyProperties(itemDO, itemModel);
-        itemModel.setPrice(itemDO.getPrice());
         itemModel.setStock(itemStockDO.getStock());
         return itemModel;
     }
