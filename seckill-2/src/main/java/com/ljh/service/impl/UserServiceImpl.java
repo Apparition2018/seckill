@@ -42,9 +42,9 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void register(UserModel userModel) throws BusinessException {
+        // 校验入参
         if (userModel == null)
             throw new BusinessException(BusinessErrorEnum.PARAMETER_VALIDATION_ERROR);
-
         ValidationResult result = validator.validate(userModel);
         if (result.isHasErrors())
             throw new BusinessException(BusinessErrorEnum.PARAMETER_VALIDATION_ERROR, result.getErrMsg());
@@ -58,7 +58,6 @@ public class UserServiceImpl implements UserService {
         }
 
         userModel.setId(userDO.getId());
-
         UserPasswordDO userPasswordDO = this.convertUserPasswordDOFromModel(userModel);
         userPasswordDOMapper.insertSelective(userPasswordDO);
     }

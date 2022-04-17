@@ -3,6 +3,7 @@ package com.ljh.controller;
 import com.ljh.error.BusinessErrorEnum;
 import com.ljh.error.BusinessException;
 import com.ljh.response.CommonReturnType;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @RestControllerAdvice
 public class BaseController {
 
@@ -27,6 +29,7 @@ public class BaseController {
             responseData.put("errCode", businessException.getErrCode());
             responseData.put("errMsg", businessException.getErrMsg());
         } else {
+            log.error(ex.getMessage());
             responseData.put("errCode", BusinessErrorEnum.UNKNOWN_ERROR.getErrCode());
             responseData.put("errMsg", BusinessErrorEnum.UNKNOWN_ERROR.getErrMsg());
         }

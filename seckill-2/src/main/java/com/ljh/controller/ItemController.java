@@ -7,10 +7,7 @@ import com.ljh.service.ItemService;
 import com.ljh.service.model.ItemModel;
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.BeanUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -29,7 +26,7 @@ public class ItemController extends BaseController {
     /**
      * 创建商品
      */
-    @RequestMapping(value = "/create", method = {RequestMethod.POST}, consumes = {CONTENT_TYPE_FORMED})
+    @PostMapping("/create")
     public CommonReturnType createItem(@RequestParam(name = "title") String title, @RequestParam(name = "description") String description,
                                        @RequestParam(name = "price") BigDecimal price, @RequestParam(name = "stock") Integer stock,
                                        @RequestParam(name = "imgUrl") String imgUrl) throws BusinessException {
@@ -41,22 +38,24 @@ public class ItemController extends BaseController {
         itemModel.setImgUrl(imgUrl);
 
         ItemModel itemModelFormReturn = itemService.createItem(itemModel);
-        ItemVO itemVO = convertVOFromModel(itemModelFormReturn);
+        ItemVO itemVO = this.convertVOFromModel(itemModelFormReturn);
         return CommonReturnType.create(itemVO);
     }
 
     /**
      * 商品详情页浏览
+     * http://localhost:6002/item/get?id=1
      */
-    @RequestMapping(value = "/get", method = {RequestMethod.GET})
+    @GetMapping("/get")
     public CommonReturnType getItem(@RequestParam(name = "id") Integer id) {
         ItemModel itemModel = itemService.getItemById(id);
-        ItemVO itemVO = convertVOFromModel(itemModel);
+        ItemVO itemVO = this.convertVOFromModel(itemModel);
         return CommonReturnType.create(itemVO);
     }
 
     /**
      * 商品列表页面浏览
+     * http://localhost:6002/item/list
      */
     @RequestMapping(value = "/list", method = {RequestMethod.GET})
     public CommonReturnType listItem() {

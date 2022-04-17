@@ -61,9 +61,9 @@
                 </executions>
                 <configuration>
                     <verbose>true</verbose>
-                    <overwrite>true</overwrite>
+                    <overwrite>false</overwrite>
                     <configurationFile>
-                        src/main/resources/mybatis-generator.xml
+                        ${basedir}/src/main/resources/mybatis-generator.xml
                     </configurationFile>
                 </configuration>
                 <dependencies>

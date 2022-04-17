@@ -3,7 +3,9 @@ package com.ljh.service.impl;
 import com.ljh.dao.ItemDOMapper;
 import com.ljh.dao.ItemStockDOMapper;
 import com.ljh.entity.ItemDO;
+import com.ljh.entity.ItemDOExample;
 import com.ljh.entity.ItemStockDO;
+import com.ljh.entity.ItemStockDOExample;
 import com.ljh.error.BusinessException;
 import com.ljh.error.BusinessErrorEnum;
 import com.ljh.service.ItemService;
@@ -16,7 +18,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,6 +39,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     @Transactional
     public ItemModel createItem(ItemModel itemModel) throws BusinessException {
+        // 校验入参
         ValidationResult result = validator.validate(itemModel);
         if (result.isHasErrors())
             throw new BusinessException(BusinessErrorEnum.PARAMETER_VALIDATION_ERROR);
@@ -45,9 +47,9 @@ public class ItemServiceImpl implements ItemService {
         // model → entity
         ItemDO itemDO = this.convertEntityFromModel(itemModel);
 
+        // 写入数据库
         itemDOMapper.insertSelective(itemDO);
         itemModel.setId(itemDO.getId());
-
         ItemStockDO itemStockDO = this.convertItemStockDOFromModel(itemModel);
         itemStockDOMapper.insertSelective(itemStockDO);
 
@@ -56,9 +58,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<ItemModel> listItem() {
-        List<ItemDO> itemDOList = itemDOMapper.listItem();
+        List<ItemDO> itemDOList = this.listOrderBySalesDesc();
         return itemDOList.stream().map(itemDO -> {
-            ItemStockDO itemStockDO = itemStockDOMapper.selectByItemId(itemDO.getId());
+            ItemStockDO itemStockDO = this.selectStockDOByItSemId(itemDO.getId());
             return this.convertModelFromEntity(itemDO, itemStockDO);
         }).collect(Collectors.toList());
     }
@@ -67,8 +69,7 @@ public class ItemServiceImpl implements ItemService {
     public ItemModel getItemById(Integer id) {
         ItemDO itemDO = itemDOMapper.selectByPrimaryKey(id);
         if (itemDO == null) return null;
-        // 获取库存数量
-        ItemStockDO itemStockDO = itemStockDOMapper.selectByItemId(itemDO.getId());
+        ItemStockDO itemStockDO = this.selectStockDOByItSemId(itemDO.getId());
 
         // model → entity
         ItemModel itemModel = this.convertModelFromEntity(itemDO, itemStockDO);
@@ -84,8 +85,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     @Transactional
     public boolean decreaseStock(Integer itemId, Integer amount) {
-        int affectedRow = itemStockDOMapper.decreaseStock(itemId, amount);
-        return affectedRow > 0;
+        return itemStockDOMapper.decreaseStock(itemId, amount) > 0;
     }
 
     @Override
@@ -94,11 +94,24 @@ public class ItemServiceImpl implements ItemService {
         itemDOMapper.increaseSales(itemId, amount);
     }
 
+    private List<ItemDO> listOrderBySalesDesc() {
+        ItemDOExample itemDOExample = new ItemDOExample();
+        itemDOExample.createCriteria();
+        itemDOExample.setOrderByClause("sales DESC");
+        return itemDOMapper.selectByExample(itemDOExample);
+    }
+
+    private ItemStockDO selectStockDOByItSemId(Integer itemId) {
+        ItemStockDOExample itemStockDOExample = new ItemStockDOExample();
+        itemStockDOExample.createCriteria().andItemIdEqualTo(itemId);
+        return itemStockDOMapper.selectByExample(itemStockDOExample).get(0);
+    }
+
     private ItemDO convertEntityFromModel(ItemModel itemModel) {
         if (itemModel == null) return null;
         ItemDO itemDO = new ItemDO();
         BeanUtils.copyProperties(itemModel, itemDO);
-        itemDO.setPrice(itemModel.getPrice().doubleValue());
+        itemDO.setPrice(itemModel.getPrice());
         return itemDO;
     }
 
@@ -113,7 +126,7 @@ public class ItemServiceImpl implements ItemService {
     private ItemModel convertModelFromEntity(ItemDO itemDO, ItemStockDO itemStockDO) {
         ItemModel itemModel = new ItemModel();
         BeanUtils.copyProperties(itemDO, itemModel);
-        itemModel.setPrice(BigDecimal.valueOf(itemDO.getPrice()));
+        itemModel.setPrice(itemDO.getPrice());
         itemModel.setStock(itemStockDO.getStock());
         return itemModel;
     }

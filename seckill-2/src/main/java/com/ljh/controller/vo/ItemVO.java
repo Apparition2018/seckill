@@ -20,7 +20,7 @@ public class ItemVO {
     private Integer sales;
     // 商品描述图片的url
     private String imgUrl;
-    // 商品是否在秒杀活动中，以及对应的状态（1：没有秒杀活动，2：秒杀活动待开始，3：秒杀活动进行中）
+    // 商品是否在秒杀活动中，以及对应的状态（1：没有秒杀活动 2：秒杀活动待开始 3：秒杀活动进行中）
     private Integer promoStatus;
     // 秒杀活动价格
     private BigDecimal promoPrice;

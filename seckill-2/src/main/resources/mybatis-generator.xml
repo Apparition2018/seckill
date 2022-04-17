@@ -30,17 +30,15 @@
 
         <javaClientGenerator targetPackage="com.ljh.dao" targetProject="src/main/java" type="XMLMAPPER"/>
 
-        <table tableName="user_info" domainObjectName="UserDO"/>
+<!--        <table tableName="user_info" domainObjectName="UserDO"/>-->
+<!--        <table tableName="user_password" domainObjectName="UserPasswordDO"/>-->
 
-        <table tableName="user_password" domainObjectName="UserPasswordDO"/>
-
-<!--        <table tableName="item" domainObjectName="ItemDO" enableCountByExample="false"-->
-<!--               enableUpdateByExample="false" enableDeleteByExample="false"-->
-<!--               enableSelectByExample="false" selectByExampleQueryId="false"/>-->
-
-<!--        <table tableName="item_stock" domainObjectName="ItemStockDO" enableCountByExample="false"-->
-<!--               enableUpdateByExample="false" enableDeleteByExample="false"-->
-<!--               enableSelectByExample="false" selectByExampleQueryId="false"/>-->
+        <table tableName="item" domainObjectName="ItemDO">
+            <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()"/>
+        </table>
+        <table tableName="item_stock" domainObjectName="ItemStockDO">
+            <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()"/>
+        </table>
 
 <!--        <table tableName="order_info" domainObjectName="OrderDO" enableCountByExample="false"-->
 <!--               enableUpdateByExample="false" enableDeleteByExample="false"-->

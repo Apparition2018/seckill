@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 public class PromoModel {
 
     private Integer id;
-    // 秒杀活动状态（1：还未开始，2：进行中，3：已结束）
+    // 秒杀活动状态（1：还未开始 2：进行中 3：已结束）
     private Integer status;
     // 秒杀活动名称
     private String promoName;
