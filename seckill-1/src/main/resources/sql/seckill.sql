@@ -1,47 +1,62 @@
--- 数据初始化脚本
+/*
+ Navicat Premium Data Transfer
 
--- 创建数据库
-CREATE DATABASE `seckill`;
--- 使用数据库
-use `seckill`;
--- 创建秒杀库存表
-CREATE TABLE seckill (
-  `seckill_id` bigint NOT NULl AUTO_INCREMENT COMMENT '商品库存id',
-  `name` varchar(120) NOT NULL COMMENT '商品名称',
-  `number` int NOT NULL COMMENT '库存数量',i
-  `start_time` timestamp NOT NULL COMMENT '秒杀开始时间',
-  `end_time` timestamp NOT NULl COMMENT '秒杀结束时间',
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  PRIMARY KEY (seckill_id),
-  key idx_start_time(start_time),
-  key idx_end_time(end_time),
-  key idx_create_time(create_time)
-) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8 COMMENT = '秒杀库存表';
+ Source Server         : localhost
+ Source Server Type    : MySQL
+ Source Server Version : 80023
+ Source Host           : localhost:3306
+ Source Schema         : seckill
 
--- 初始化数据
-insert into
-  seckill (name, number, start_time, end_time)
-values
-  ('1000元秒杀iphone6', 100, '2015-11-01 00:00:00', '2015-11-02 00:00:00'),
-  ('500元秒杀ipad2', 200, '2015-11-01 00:00:00', '2015-11-02 00:00:00'),
-  ('300元秒杀小米4', 300, '2015-11-01 00:00:00', '2015-11-02 00:00:00'),
-  ('200元秒杀红米note', 400, '2015-11-01 00:00:00', '2015-11-02 00:00:00');
+ Target Server Type    : MySQL
+ Target Server Version : 80023
+ File Encoding         : 65001
 
--- 秒杀成功明细表
--- 用户登录认证相关的信息
-create table success_killed (
-  `seckill_id` bigint NOT NULL COMMENT '秒杀商品id',
-  `user_phone` bigint NOT NULL COMMENT '用户手机号',
-  `state` tinyint NOT NULL DEFAULT -1 COMMENT '状态标示：-1：无效 0：成功 1：已付款 2：已发货',
-  `create_time` timestamp NOT NULL COMMENT '创建时间',
-  PRIMARY KEY (seckill_id, user_phone), /* 联合主键 */
-  key idx_create_time (create_time)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT = '秒杀成功明细表';
+ Date: 19/04/2022 02:48:22
+*/
 
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
 
--- 连接数据库控制台
-mysql -uroot -p
+-- ----------------------------
+-- Table structure for seckill
+-- ----------------------------
+DROP TABLE IF EXISTS `seckill`;
+CREATE TABLE `seckill`  (
+  `seckill_id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '商品库存id',
+  `name` varchar(120) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品名称',
+  `number` int(0) NOT NULL COMMENT '库存数量',
+  `start_time` timestamp(0) NOT NULL COMMENT '秒杀开始时间',
+  `end_time` timestamp(0) NOT NULL COMMENT '秒杀结束时间',
+  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  PRIMARY KEY (`seckill_id`) USING BTREE,
+  INDEX `idx_start_time`(`start_time`) USING BTREE,
+  INDEX `idx_end_time`(`end_time`) USING BTREE,
+  INDEX `idx_create_time`(`create_time`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1004 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '秒杀库存表' ROW_FORMAT = Dynamic;
 
--- 查询表创建语句
-show create table seckill\G
+-- ----------------------------
+-- Records of seckill
+-- ----------------------------
+INSERT INTO `seckill` VALUES (1000, '1000元秒杀iphone6', 100, '2015-11-01 00:00:00', '2015-11-02 00:00:00', '2022-04-18 18:48:12');
+INSERT INTO `seckill` VALUES (1001, '500元秒杀ipad2', 200, '2015-11-01 00:00:00', '2015-11-02 00:00:00', '2022-04-18 18:48:12');
+INSERT INTO `seckill` VALUES (1002, '300元秒杀小米4', 300, '2015-11-01 00:00:00', '2015-11-02 00:00:00', '2022-04-18 18:48:12');
+INSERT INTO `seckill` VALUES (1003, '200元秒杀红米note', 400, '2015-11-01 00:00:00', '2015-11-02 00:00:00', '2022-04-18 18:48:12');
 
+-- ----------------------------
+-- Table structure for success_killed
+-- ----------------------------
+DROP TABLE IF EXISTS `success_killed`;
+CREATE TABLE `success_killed`  (
+  `seckill_id` bigint(0) NOT NULL COMMENT '秒杀商品id',
+  `user_phone` bigint(0) NOT NULL COMMENT '用户手机号',
+  `state` tinyint(0) NOT NULL DEFAULT -1 COMMENT '状态标示：-1：无效 0：成功 1：已付款 2：已发货',
+  `create_time` timestamp(0) NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`seckill_id`, `user_phone`) USING BTREE,
+  INDEX `idx_create_time`(`create_time`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '秒杀成功明细表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of success_killed
+-- ----------------------------
+
+SET FOREIGN_KEY_CHECKS = 1;
