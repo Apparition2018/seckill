@@ -8,9 +8,9 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <modules>
-        <!-- 6001：Java高并发秒杀API -->
+        <!-- 6000：Java高并发秒杀API -->
         <module>seckill-1</module>
-        <!-- 6002：SpringBoot构建电商基础秒杀项目 -->
+        <!-- 6001：SpringBoot构建电商基础秒杀项目 -->
         <module>seckill-2</module>
     </modules>
 

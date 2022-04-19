@@ -22,14 +22,14 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="org.seckill.entity" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.ljh.entity" targetProject="src/main/java">
             <property name="enableSubPackages" value="false"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
         <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources"/>
 
-        <javaClientGenerator targetPackage="org.seckill.dao" targetProject="src/main/java" type="XMLMAPPER"/>
+        <javaClientGenerator targetPackage="com.ljh.dao" targetProject="src/main/java" type="XMLMAPPER"/>
 
         <table tableName="seckill" domainObjectName="Seckill" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"

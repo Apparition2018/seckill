@@ -82,7 +82,7 @@
     $(function () {
         $.ajax({
             type: "GET",
-            url: "http://localhost:6002/item/get",
+            url: "http://localhost:6001/item/get",
             data: {
                 "id": getParam("id")
             },
@@ -101,7 +101,7 @@
         $("#createOrder").on("click", function () {
             $.ajax({
                 type: "POST",
-                url: "http://localhost:6002/order/createOrder",
+                url: "http://localhost:6001/order/createOrder",
                 data: {
                     "itemId": g_itemVO.id,
                     "promoId": g_itemVO.promoId,

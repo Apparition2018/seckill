@@ -106,7 +106,7 @@ public class UserController extends BaseController {
     }
 
     /**
-     * http://localhost:6002/user/get?id=1
+     * http://localhost:6001/user/get?id=1
      */
     @GetMapping("/get")
     public CommonReturnType getUser(@RequestParam(name = "id") Integer id) throws BusinessException {

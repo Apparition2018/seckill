@@ -37,7 +37,7 @@
     $(function () {
         $.ajax({
             type: "GET",
-            url: "http://localhost:6002/item/list",
+            url: "http://localhost:6001/item/list",
             xhrFields: {withCredentials: true}
         }).done(function (data) {
             if (data.status === "success") {

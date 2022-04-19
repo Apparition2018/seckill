@@ -44,7 +44,7 @@ public class ItemController extends BaseController {
 
     /**
      * 商品详情页浏览
-     * http://localhost:6002/item/get?id=1
+     * http://localhost:6001/item/get?id=1
      */
     @GetMapping("/get")
     public CommonReturnType getItem(@RequestParam(name = "id") Integer id) {
@@ -55,7 +55,7 @@ public class ItemController extends BaseController {
 
     /**
      * 商品列表页面浏览
-     * http://localhost:6002/item/list
+     * http://localhost:6001/item/list
      */
     @RequestMapping(value = "/list", method = {RequestMethod.GET})
     public CommonReturnType listItem() {

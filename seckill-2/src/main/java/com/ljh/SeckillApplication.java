@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 获取 otp 然后注册用户：http://localhost:6002/getotp.html
- * 登录：http://localhost:6002/login.html
- * 创建商品：http://localhost:6002/createitem.html
+ * 获取 otp 然后注册用户：http://localhost:6001/getotp.html
+ * 登录：http://localhost:6001/login.html
+ * 创建商品：http://localhost:6001/createitem.html
  */
 @SpringBootApplication(scanBasePackages = "com.ljh")
 @RestController
