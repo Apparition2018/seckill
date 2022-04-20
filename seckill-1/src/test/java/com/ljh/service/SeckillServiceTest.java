@@ -1,13 +1,13 @@
 package com.ljh.service;
 
-import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import com.ljh.dto.Exposer;
 import com.ljh.dto.SeckillExecution;
 import com.ljh.entity.Seckill;
 import com.ljh.exception.RepeatKillException;
 import com.ljh.exception.SeckillCloseException;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -23,22 +23,25 @@ public class SeckillServiceTest {
     private SeckillService seckillService;
 
     @Test
-    public void getSeckillList() {
+    public void testGetSeckillList() {
         List<Seckill> list = seckillService.getSeckillList();
         log.info("list={}", list);
     }
 
     @Test
-    public void getById() {
+    public void testGetById() {
         long id = 1000;
         Seckill seckill = seckillService.getById(id);
         log.info("seckill={}", seckill);
-
     }
 
-    // 集成测试代码完整逻辑，注意可重复执行
+    /**
+     * 1.seckillService.exportSeckillUrl(id)
+     * 2.seckillService.executeSeckill(id, phone, md5)
+     * 集成测试代码完整逻辑，注意可重复执行
+     */
     @Test
-    public void seckillLogic() {
+    public void testSeckillLogic() {
         long id = 1001;
         Exposer exposer = seckillService.exportSeckillUrl(id);
         if (exposer.isExposed()) {
@@ -58,7 +61,7 @@ public class SeckillServiceTest {
     }
 
     @Test
-    public void executeSeckillProcedure() {
+    public void testExecuteSeckillProcedure() {
         long seckillId = 1001;
         long phone = 13680111023L;
         Exposer exposer = seckillService.exportSeckillUrl(seckillId);

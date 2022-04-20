@@ -1,14 +1,14 @@
 package com.ljh.dao;
 
+import com.ljh.entity.SuccessKilled;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import com.ljh.entity.SuccessKilled;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 @ContextConfiguration("classpath:spring/spring-dao.xml")
 public class SuccessKilledDaoTest {
 
@@ -16,7 +16,7 @@ public class SuccessKilledDaoTest {
     private SuccessKilledDao successKilledDao;
 
     @Test
-    public void insertSuccessKilled() {
+    public void testInsertSuccessKilled() {
         long id = 1001L;
         long phone = 13502181181L;
         int insertCount = successKilledDao.insertSuccessKilled(id, phone);
@@ -24,7 +24,7 @@ public class SuccessKilledDaoTest {
     }
 
     @Test
-    public void queryByIdWithSeckill() {
+    public void testQueryByIdWithSeckill() {
         long id = 1001L;
         long phone = 13502181181L;
         SuccessKilled successKilled = successKilledDao.queryByIdWithSeckill(id, phone);

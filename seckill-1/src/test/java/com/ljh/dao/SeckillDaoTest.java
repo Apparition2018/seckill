@@ -3,10 +3,7 @@ package com.ljh.dao;
 import com.ljh.entity.Seckill;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
@@ -25,7 +22,7 @@ public class SeckillDaoTest {
     private SeckillDao seckillDao;
 
     @Test
-    public void queryById() {
+    public void testQueryById() {
         long id = 1000;
         Seckill seckill = seckillDao.queryById(id);
         System.out.println(seckill.getName());
@@ -33,12 +30,12 @@ public class SeckillDaoTest {
     }
 
     @Test
-    public void queryAll() {
+    public void testQueryAll() {
         seckillDao.queryAll(0, 100).forEach(System.out::println);
     }
 
     @Test
-    public void reduceNumber() {
+    public void testReduceNumber() {
         Date killTime = new Date();
         int updateCount = seckillDao.reduceNumber(1000L, killTime);
         System.out.println(updateCount);

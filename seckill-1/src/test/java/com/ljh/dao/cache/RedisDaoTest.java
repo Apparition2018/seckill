@@ -1,9 +1,9 @@
 package com.ljh.dao.cache;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import com.ljh.dao.SeckillDao;
 import com.ljh.entity.Seckill;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -20,7 +20,7 @@ public class RedisDaoTest {
     private SeckillDao seckillDao;
 
     @Test
-    public void seckill() {
+    public void testSeckill() {
         // get and put
         long id = 1001;
         Seckill seckill = redisDao.getSeckill(id);
@@ -34,5 +34,4 @@ public class RedisDaoTest {
             }
         }
     }
-
 }
