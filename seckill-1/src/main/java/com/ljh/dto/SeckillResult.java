@@ -2,9 +2,6 @@ package com.ljh.dto;
 
 import lombok.Data;
 
-/**
- * 所有 Ajax 请求返回类型，封装 Json 结果
- */
 @Data
 public class SeckillResult<T> {
 

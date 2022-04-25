@@ -19,7 +19,8 @@ import java.util.List;
 
 @Slf4j
 @Controller
-@RequestMapping("/seckill") // url:/模块/资源/{id}/细分 /seckill/list
+// url：/模块/资源/{id}/细分
+@RequestMapping("/seckill")
 public class SeckillController {
 
     private final SeckillService seckillService;
@@ -28,18 +29,15 @@ public class SeckillController {
         this.seckillService = seckillService;
     }
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @GetMapping("/list")
     public String list(Model model) {
-        // 获取列表页
         List<Seckill> list = seckillService.getSeckillList();
+        // model + list.jsp = ModelAndView
         model.addAttribute("list", list);
-
-
-        // list.jsp + model = ModelAndView
-        return "list"; // WEB-INF/jsp/"list".jsp
+        return "list";
     }
 
-    @RequestMapping(value = "/{seckillId}/detail", method = RequestMethod.GET)
+    @GetMapping("/{seckillId}/detail")
     public String detail(@PathVariable("seckillId") Long seckillId, Model model) {
         if (seckillId == null) return "redirect:/seckill/list";
         Seckill seckill = seckillService.getById(seckillId);
@@ -48,10 +46,7 @@ public class SeckillController {
         return "detail";
     }
 
-    // ajax json
-    @RequestMapping(value = "/{seckillId}/exposer",
-            method = RequestMethod.POST,
-            produces = {"application/json;charset=UTF-8"})
+    @PostMapping("/{seckillId}/exposer")
     @ResponseBody
     public SeckillResult<Exposer> exposer(@PathVariable Long seckillId) {
         SeckillResult<Exposer> result;
@@ -65,18 +60,15 @@ public class SeckillController {
         return result;
     }
 
-    @RequestMapping(value = "/{seckillId}/{md5}/execution",
-            method = RequestMethod.POST,
-            produces = {"application/json;charset=UTF-8"})
+    @PostMapping("/{seckillId}/{md5}/execution")
     @ResponseBody
     public SeckillResult<SeckillExecution> execute(@PathVariable("seckillId") Long seckillId,
                                                    @PathVariable("md5") String md5,
                                                    @CookieValue(value = "killPhone", required = false) Long phone) {
-        // 可使用 springmvc valid，这里不使用
         if (phone == null)
             return new SeckillResult<>(false, "未注册");
         try {
-            // 存储过程调用
+            // 调用存储过程
             SeckillExecution execution = seckillService.executeSeckillProcedure(seckillId, phone, md5);
             return new SeckillResult<>(true, execution);
         } catch (RepeatKillException e) {
@@ -92,7 +84,7 @@ public class SeckillController {
         }
     }
 
-    @RequestMapping(value = "/time/now", method = RequestMethod.GET)
+    @GetMapping(value = "/time/now")
     @ResponseBody
     public SeckillResult<Long> time() {
         Date now = new Date();

@@ -1,10 +1,10 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="common/tag.jsp" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ include file="common/jstl.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
     <title>秒杀列详情页</title>
-    <%@include file="common/head.jsp" %>
+    <%@ include file="common/head.jsp" %>
 </head>
 <body>
 <div class="container">
@@ -14,9 +14,9 @@
         </div>
         <div class="panel-body">
             <h2 class="text-danger">
-                <%-- 显示time图标 --%>
+                <%-- time 图标 --%>
                 <span class="glyphicon glyphicon-time"></span>
-                <%-- 展示倒计时 --%>
+                <%-- 倒计时 --%>
                 <span class="glyphicon" id="seckill-box"></span>
             </h2>
         </div>
@@ -52,23 +52,19 @@
     </div><!-- /.modal -->
 </div>
 
-<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!-- jQuery cookie -->
-<script src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-<!-- jQuery countDown -->
-<script src="https://cdn.bootcss.com/jquery.countdown/2.2.0/jquery.countdown.min.js"></script>
-<!-- 开始编写交互逻辑 -->
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.countdown/2.2.0/jquery.countdown.min.js"></script>
 <script src="/resources/script/seckill.js" type="text/javascript"></script>
 <scirpt src="/seckill.js" type="text/javascript"></scirpt>
 <script type="text/javascript">
     $(function () {
-        // 使用EL表达式传入参数
+        // 使用 EL 表达式传入参数
         seckill.detail.init({
             seckillId: ${seckill.seckillId},
-            startTime: ${seckill.startTime.time}, // 毫秒
+            // 开始时间（毫秒）
+            startTime: ${seckill.startTime.time},
             endTime: ${seckill.endTime.time}
         });
     });

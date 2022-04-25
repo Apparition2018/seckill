@@ -1,15 +1,14 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%-- 引入jstl --%>
-<%@include file="common/tag.jsp" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ include file="common/jstl.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
     <title>秒杀列表页</title>
-    <%-- 静态包含：一个servlet --%>
-    <%@include file="common/head.jsp" %>
+    <%-- <%@ include %>：静态包含，一个 Servlet --%>
+    <%-- <jsp:include />：动态包含，多个 Servlet --%>
+    <%@ include file="common/head.jsp" %>
 </head>
 <body>
-<%-- 页面显示部分 --%>
 <div class="container">
     <div class="panel panel-default">
         <div class="panel-heading text-center">
@@ -44,10 +43,7 @@
     </div>
 </div>
 
-
-<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </body>
 </html>
