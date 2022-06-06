@@ -48,16 +48,16 @@ public class SeckillServiceImpl implements SeckillService {
 
     @Override
     public Exposer exportSeckillUrl(long seckillId) {
-        // 优化点：缓存优化，超时的基础上维护一致性
-        // 1:访问 Redis
+        /* 缓存优化 */
+        // 1.访问 Redis
         Seckill seckill = redisDao.getSeckill(seckillId);
         if (seckill == null) {
-            // 2:访问数据库
+            // 2.访问数据库
             seckill = seckillDao.queryById(seckillId);
             if (seckill == null) {
                 return new Exposer(false, seckillId);
             } else {
-                // 3:放入 Redis
+                // 3.放入 Redis
                 redisDao.putSeckill(seckill);
             }
         }
@@ -121,17 +121,15 @@ public class SeckillServiceImpl implements SeckillService {
     @Override
     public SeckillExecution executeSeckillProcedure(long seckillId, long userPhone, String md5) throws SeckillException {
         if (md5 == null || !md5.equals(getMD5(seckillId)))
-            throw new SeckillException("seckill data rewrite");
+            return new SeckillExecution(seckillId, SeckillStatEnum.DATA_REWRITE);
         Date killTime = new Date();
         Map<String, Object> map = new HashMap<>();
         map.put("seckillId", seckillId);
         map.put("phone", userPhone);
         map.put("killTime", killTime);
         map.put("result", null);
-        // 执行存储过程，result被赋值
         try {
             seckillDao.killByProcedure(map);
-            // 获取result
             int result = MapUtils.getInteger(map, "result", -2);
             if (result == 1) {
                 SuccessKilled sk = successKilledDao.queryByIdWithSeckill(seckillId, userPhone);

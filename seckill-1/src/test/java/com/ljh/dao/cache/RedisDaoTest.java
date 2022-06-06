@@ -28,10 +28,12 @@ public class RedisDaoTest {
             seckill = seckillDao.queryById(id);
             if (seckill != null) {
                 String result = redisDao.putSeckill(seckill);
-                System.out.println(result);
+                System.err.println(result);
                 seckill = redisDao.getSeckill(id);
-                System.out.println(seckill);
+                System.err.println(seckill);
             }
+        } else {
+            System.err.println(seckill);
         }
     }
 }

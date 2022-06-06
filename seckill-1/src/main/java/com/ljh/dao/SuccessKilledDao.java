@@ -1,7 +1,6 @@
 package com.ljh.dao;
 
 import com.ljh.entity.SuccessKilled;
-import com.ljh.entity.SuccessKilledKey;
 import org.apache.ibatis.annotations.Param;
 
 public interface SuccessKilledDao {
@@ -22,16 +21,4 @@ public interface SuccessKilledDao {
      * @param userPhone 用户手机号
      */
     SuccessKilled queryByIdWithSeckill(@Param("seckillId") Long seckillId, @Param("userPhone") Long userPhone);
-
-    int deleteByPrimaryKey(SuccessKilledKey key);
-
-    int insert(SuccessKilled record);
-
-    int insertSelective(SuccessKilled record);
-
-    SuccessKilled selectByPrimaryKey(SuccessKilledKey key);
-
-    int updateByPrimaryKeySelective(SuccessKilled record);
-
-    int updateByPrimaryKey(SuccessKilled record);
 }

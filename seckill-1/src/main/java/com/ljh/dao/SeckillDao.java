@@ -36,17 +36,4 @@ public interface SeckillDao {
      * 使用存储过程执行秒杀
      */
     void killByProcedure(Map<String, Object> paramMap);
-
-
-    int deleteByPrimaryKey(Long seckillId);
-
-    int insert(Seckill record);
-
-    int insertSelective(Seckill record);
-
-    Seckill selectByPrimaryKey(Long seckillId);
-
-    int updateByPrimaryKeySelective(Seckill record);
-
-    int updateByPrimaryKey(Seckill record);
 }
