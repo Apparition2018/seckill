@@ -2,11 +2,13 @@ package com.ljh.entity;
 
 import lombok.Data;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
 @Data
 public class SuccessKilled extends SuccessKilledKey implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
     private Integer state;
     private Date createTime;

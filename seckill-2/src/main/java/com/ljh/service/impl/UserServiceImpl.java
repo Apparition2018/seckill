@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
         // 通过用户的手机获取用户信息
         UserDOExample userDOExample = new UserDOExample();
         userDOExample.createCriteria().andTelephoneEqualTo(telephone);
-        UserDO userDO = userDOMapper.selectByExample(userDOExample).get(0);
+        UserDO userDO = userDOMapper.selectByExample(userDOExample).getFirst();
         if (userDO == null) throw new BusinessException(BusinessErrorEnum.USER_LOGIN_FAIL);
         UserPasswordDO userPasswordDO = this.selectByUserId(userDO.getId());
         UserModel userModel = this.convertModelFromEntity(userDO, userPasswordDO);
@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
     private UserPasswordDO selectByUserId(Integer userId) {
         UserPasswordDOExample userPasswordDOExample = new UserPasswordDOExample();
         userPasswordDOExample.createCriteria().andUserIdEqualTo(userId);
-        return userPasswordDOMapper.selectByExample(userPasswordDOExample).get(0);
+        return userPasswordDOMapper.selectByExample(userPasswordDOExample).getFirst();
     }
 
     private UserPasswordDO convertUserPasswordDOFromModel(UserModel userModel) {

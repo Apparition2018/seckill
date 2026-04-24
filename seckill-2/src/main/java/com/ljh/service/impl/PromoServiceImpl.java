@@ -29,7 +29,7 @@ public class PromoServiceImpl implements PromoService {
         if (promoDoList.isEmpty()) return null;
 
         // entity → model
-        PromoModel promoModel = this.convertModelFromEntity(promoDoList.get(0));
+        PromoModel promoModel = this.convertModelFromEntity(promoDoList.getFirst());
 
         // 判断当前时间是否秒杀活动即将开始或正在进行
         if (promoModel.getStartDate().isAfterNow()) {

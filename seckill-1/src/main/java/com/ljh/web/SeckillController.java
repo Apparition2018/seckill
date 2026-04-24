@@ -38,7 +38,7 @@ public class SeckillController {
     }
 
     @GetMapping("/{seckillId}/detail")
-    public String detail(@PathVariable("seckillId") Long seckillId, Model model) {
+    public String detail(@PathVariable Long seckillId, Model model) {
         if (seckillId == null) return "redirect:/seckill/list";
         Seckill seckill = seckillService.getById(seckillId);
         if (seckill == null) return "forward:/seckill/list";
@@ -62,8 +62,7 @@ public class SeckillController {
 
     @PostMapping("/{seckillId}/{md5}/execution")
     @ResponseBody
-    public SeckillResult<SeckillExecution> execute(@PathVariable("seckillId") Long seckillId,
-                                                   @PathVariable("md5") String md5,
+    public SeckillResult<SeckillExecution> execute(@PathVariable Long seckillId, @PathVariable String md5,
                                                    @CookieValue(value = "killPhone", required = false) Long phone) {
         if (phone == null)
             return new SeckillResult<>(false, "未注册");

@@ -1,21 +1,18 @@
 package com.ljh.validator;
 
-import org.springframework.beans.factory.InitializingBean;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
 import org.springframework.stereotype.Component;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
 import java.util.Set;
 
 @Component
-public class ValidatorImpl implements InitializingBean {
+public class ValidatorImpl {
 
-    private Validator validator;
+    private final Validator validator;
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        this.validator = Validation.buildDefaultValidatorFactory().getValidator();
+    public ValidatorImpl(Validator validator) {
+        this.validator = validator;
     }
 
     /**
@@ -24,7 +21,7 @@ public class ValidatorImpl implements InitializingBean {
     public ValidationResult validate(Object bean) {
         ValidationResult result = new ValidationResult();
         Set<ConstraintViolation<Object>> constraintViolationSet = validator.validate(bean);
-        if (constraintViolationSet.size() > 0) {
+        if (!constraintViolationSet.isEmpty()) {
             result.setHasErrors(true);
             constraintViolationSet.forEach(constraintViolation -> {
                 String propertyName = constraintViolation.getPropertyPath().toString();

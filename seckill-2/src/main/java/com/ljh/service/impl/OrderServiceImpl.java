@@ -5,8 +5,8 @@ import com.ljh.dao.SequenceDOMapper;
 import com.ljh.entity.OrderDO;
 import com.ljh.entity.SequenceDO;
 import com.ljh.entity.SequenceDOExample;
-import com.ljh.error.BusinessException;
 import com.ljh.error.BusinessErrorEnum;
+import com.ljh.error.BusinessException;
 import com.ljh.service.ItemService;
 import com.ljh.service.OrderService;
 import com.ljh.service.UserService;
@@ -109,9 +109,7 @@ public class OrderServiceImpl implements OrderService {
         sequenceDO.setCurrentValue(sequenceDO.getCurrentValue() + sequenceDO.getStep());
         sequenceDOMapper.updateByPrimaryKey(sequenceDO);
         String sequenceStr = String.valueOf(sequence);
-        for (int i = 0; i < 6 - sequenceStr.length(); i++) {
-            stringBuilder.append(0);
-        }
+        stringBuilder.repeat("0", Math.max(0, 6 - sequenceStr.length()));
         stringBuilder.append(sequenceStr);
 
         // 3.最后2位为分库分表位
@@ -124,7 +122,7 @@ public class OrderServiceImpl implements OrderService {
     private SequenceDO selectSequenceDOByName() {
         SequenceDOExample sequenceDOExample = new SequenceDOExample();
         sequenceDOExample.createCriteria().andNameEqualTo("order_info");
-        return sequenceDOMapper.selectByExample(sequenceDOExample).get(0);
+        return sequenceDOMapper.selectByExample(sequenceDOExample).getFirst();
     }
 
     private OrderDO convertEntityFromModel(OrderModel orderModel) {

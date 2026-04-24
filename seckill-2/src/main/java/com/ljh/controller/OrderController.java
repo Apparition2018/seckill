@@ -6,12 +6,11 @@ import com.ljh.response.CommonReturnType;
 import com.ljh.service.OrderService;
 import com.ljh.service.model.OrderModel;
 import com.ljh.service.model.UserModel;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
 
 @RestController("/order")
 @RequestMapping("/order")

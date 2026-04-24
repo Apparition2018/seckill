@@ -2,23 +2,23 @@ package com.ljh.dao;
 
 import com.ljh.entity.Seckill;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import javax.annotation.Resource;
 import java.util.Date;
 
 /**
  * spring 和 junit 整合，junit 启动时加载 springIOC 容器
  * spring-test，junit
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 // 告诉 junit spring 配置文件
 @ContextConfiguration("classpath:spring/spring-dao.xml")
 public class SeckillDaoTest {
 
-    @Resource
+    @Autowired
     private SeckillDao seckillDao;
 
     @Test

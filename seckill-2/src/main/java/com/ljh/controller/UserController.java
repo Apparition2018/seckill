@@ -7,15 +7,15 @@ import com.ljh.error.BusinessException;
 import com.ljh.response.CommonReturnType;
 import com.ljh.service.UserService;
 import com.ljh.service.model.UserModel;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
-import sun.misc.BASE64Encoder;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.Random;
 
 @RestController("user")
@@ -35,7 +35,8 @@ public class UserController extends BaseController {
      */
     @PostMapping("/login")
     public CommonReturnType login(@RequestParam(name = "telephone") String telephone,
-                                  @RequestParam(name = "password") String password) throws BusinessException, UnsupportedEncodingException, NoSuchAlgorithmException {
+                                  @RequestParam(name = "password") String password)
+            throws BusinessException, UnsupportedEncodingException, NoSuchAlgorithmException {
         if (StringUtils.isEmpty(telephone) || StringUtils.isEmpty(password))
             throw new BusinessException(BusinessErrorEnum.PARAMETER_VALIDATION_ERROR);
 
@@ -56,7 +57,8 @@ public class UserController extends BaseController {
                                      @RequestParam(name = "name") String name,
                                      @RequestParam(name = "gender") Integer gender,
                                      @RequestParam(name = "age") Integer age,
-                                     @RequestParam(name = "password") String password) throws BusinessException, UnsupportedEncodingException, NoSuchAlgorithmException {
+                                     @RequestParam(name = "password") String password)
+            throws BusinessException, UnsupportedEncodingException, NoSuchAlgorithmException {
         // 验证码手机号和对应的 otpCode 相符合
         String inSessionOtpCode = (String) httpServletRequest.getSession().getAttribute(telephone);
         if (!StringUtils.equals(otpCode, inSessionOtpCode))
@@ -65,7 +67,7 @@ public class UserController extends BaseController {
         // 用户注册
         UserModel userModel = new UserModel();
         userModel.setName(name);
-        userModel.setGender(new Byte(String.valueOf(gender.intValue())));
+        userModel.setGender(gender.byteValue());
         userModel.setAge(age);
         userModel.setTelephone(telephone);
         userModel.setRegisterMode("phone");
@@ -77,8 +79,8 @@ public class UserController extends BaseController {
 
     private String encodeByMd5(String str) throws NoSuchAlgorithmException {
         MessageDigest md5 = MessageDigest.getInstance("MD5");
-        BASE64Encoder base64Encoder = new BASE64Encoder();
-        return base64Encoder.encode(md5.digest(str.getBytes(StandardCharsets.UTF_8)));
+        byte[] digest = md5.digest(str.getBytes(StandardCharsets.UTF_8));
+        return Base64.getEncoder().encodeToString(digest);
     }
 
     /**
@@ -106,7 +108,7 @@ public class UserController extends BaseController {
     }
 
     /**
-     * http://localhost:6001/user/get?id=1
+     * <a href="http://localhost:6001/user/get?id=1">获取用户</a>
      */
     @GetMapping("/get")
     public CommonReturnType getUser(@RequestParam(name = "id") Integer id) throws BusinessException {

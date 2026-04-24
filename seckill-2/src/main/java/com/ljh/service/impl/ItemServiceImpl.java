@@ -6,8 +6,8 @@ import com.ljh.entity.ItemDO;
 import com.ljh.entity.ItemDOExample;
 import com.ljh.entity.ItemStockDO;
 import com.ljh.entity.ItemStockDOExample;
-import com.ljh.error.BusinessException;
 import com.ljh.error.BusinessErrorEnum;
+import com.ljh.error.BusinessException;
 import com.ljh.service.ItemService;
 import com.ljh.service.PromoService;
 import com.ljh.service.model.ItemModel;
@@ -29,7 +29,8 @@ public class ItemServiceImpl implements ItemService {
     private final ItemStockDOMapper itemStockDOMapper;
     private final PromoService promoService;
 
-    public ItemServiceImpl(ValidatorImpl validator, ItemDOMapper itemDOMapper, ItemStockDOMapper itemStockDOMapper, PromoService promoService) {
+    public ItemServiceImpl(ValidatorImpl validator, ItemDOMapper itemDOMapper, ItemStockDOMapper itemStockDOMapper,
+                           PromoService promoService) {
         this.validator = validator;
         this.itemDOMapper = itemDOMapper;
         this.itemStockDOMapper = itemStockDOMapper;
@@ -104,7 +105,7 @@ public class ItemServiceImpl implements ItemService {
     private ItemStockDO selectStockDOByItSemId(Integer itemId) {
         ItemStockDOExample itemStockDOExample = new ItemStockDOExample();
         itemStockDOExample.createCriteria().andItemIdEqualTo(itemId);
-        return itemStockDOMapper.selectByExample(itemStockDOExample).get(0);
+        return itemStockDOMapper.selectByExample(itemStockDOExample).getFirst();
     }
 
     private ItemDO convertEntityFromModel(ItemModel itemModel) {

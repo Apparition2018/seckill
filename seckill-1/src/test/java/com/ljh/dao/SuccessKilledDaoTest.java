@@ -2,17 +2,16 @@ package com.ljh.dao;
 
 import com.ljh.entity.SuccessKilled;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import javax.annotation.Resource;
-
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration("classpath:spring/spring-dao.xml")
 public class SuccessKilledDaoTest {
 
-    @Resource
+    @Autowired
     private SuccessKilledDao successKilledDao;
 
     @Test

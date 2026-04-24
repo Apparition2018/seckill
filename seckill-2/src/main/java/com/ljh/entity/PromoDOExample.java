@@ -1,70 +1,54 @@
 package com.ljh.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Getter
 public class PromoDOExample {
+    @Setter
     protected String orderByClause;
-
+    @Setter
     protected boolean distinct;
-
-    protected List<Criteria> oredCriteria;
+    protected List<Criteria> orCriteria;
 
     public PromoDOExample() {
-        oredCriteria = new ArrayList<>();
-    }
-
-    public void setOrderByClause(String orderByClause) {
-        this.orderByClause = orderByClause;
-    }
-
-    public String getOrderByClause() {
-        return orderByClause;
-    }
-
-    public void setDistinct(boolean distinct) {
-        this.distinct = distinct;
-    }
-
-    public boolean isDistinct() {
-        return distinct;
-    }
-
-    public List<Criteria> getOredCriteria() {
-        return oredCriteria;
+        orCriteria = new ArrayList<>();
     }
 
     public void or(Criteria criteria) {
-        oredCriteria.add(criteria);
+        this.orCriteria.add(criteria);
     }
 
     public Criteria or() {
         Criteria criteria = createCriteriaInternal();
-        oredCriteria.add(criteria);
+        this.orCriteria.add(criteria);
         return criteria;
     }
 
     public Criteria createCriteria() {
         Criteria criteria = createCriteriaInternal();
-        if (oredCriteria.size() == 0) {
-            oredCriteria.add(criteria);
+        if (this.orCriteria.isEmpty()) {
+            this.orCriteria.add(criteria);
         }
         return criteria;
     }
 
     protected Criteria createCriteriaInternal() {
-        Criteria criteria = new Criteria();
-        return criteria;
+        return new Criteria();
     }
 
     public void clear() {
-        oredCriteria.clear();
+        orCriteria.clear();
         orderByClause = null;
         distinct = false;
     }
 
+    @Getter
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
 
@@ -74,14 +58,10 @@ public class PromoDOExample {
         }
 
         public boolean isValid() {
-            return criteria.size() > 0;
+            return !criteria.isEmpty();
         }
 
         public List<Criterion> getAllCriteria() {
-            return criteria;
-        }
-
-        public List<Criterion> getCriteria() {
             return criteria;
         }
 
@@ -483,54 +463,16 @@ public class PromoDOExample {
         }
     }
 
+    @Getter
     public static class Criterion {
         private String condition;
-
         private Object value;
-
         private Object secondValue;
-
         private boolean noValue;
-
         private boolean singleValue;
-
         private boolean betweenValue;
-
         private boolean listValue;
-
         private String typeHandler;
-
-        public String getCondition() {
-            return condition;
-        }
-
-        public Object getValue() {
-            return value;
-        }
-
-        public Object getSecondValue() {
-            return secondValue;
-        }
-
-        public boolean isNoValue() {
-            return noValue;
-        }
-
-        public boolean isSingleValue() {
-            return singleValue;
-        }
-
-        public boolean isBetweenValue() {
-            return betweenValue;
-        }
-
-        public boolean isListValue() {
-            return listValue;
-        }
-
-        public String getTypeHandler() {
-            return typeHandler;
-        }
 
         protected Criterion(String condition) {
             super();

@@ -1,37 +1,22 @@
 package com.ljh.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import java.io.Serial;
 import java.io.Serializable;
 
+@Getter
 public class SequenceDO implements Serializable {
-    private String name;
-
-    private Integer currentValue;
-
-    private Integer step;
-
+    @Serial
     private static final long serialVersionUID = 1L;
-
-    public String getName() {
-        return name;
-    }
+    private String name;
+    @Setter
+    private Integer currentValue;
+    @Setter
+    private Integer step;
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
-    }
-
-    public Integer getCurrentValue() {
-        return currentValue;
-    }
-
-    public void setCurrentValue(Integer currentValue) {
-        this.currentValue = currentValue;
-    }
-
-    public Integer getStep() {
-        return step;
-    }
-
-    public void setStep(Integer step) {
-        this.step = step;
     }
 }

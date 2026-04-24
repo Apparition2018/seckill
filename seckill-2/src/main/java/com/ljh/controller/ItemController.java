@@ -27,8 +27,10 @@ public class ItemController extends BaseController {
      * 创建商品
      */
     @PostMapping("/create")
-    public CommonReturnType createItem(@RequestParam(name = "title") String title, @RequestParam(name = "description") String description,
-                                       @RequestParam(name = "price") BigDecimal price, @RequestParam(name = "stock") Integer stock,
+    public CommonReturnType createItem(@RequestParam(name = "title") String title,
+                                       @RequestParam(name = "description") String description,
+                                       @RequestParam(name = "price") BigDecimal price,
+                                       @RequestParam(name = "stock") Integer stock,
                                        @RequestParam(name = "imgUrl") String imgUrl) throws BusinessException {
         ItemModel itemModel = new ItemModel();
         itemModel.setTitle(title);
@@ -43,8 +45,7 @@ public class ItemController extends BaseController {
     }
 
     /**
-     * 商品详情页浏览
-     * http://localhost:6001/item/get?id=1
+     * <a href="http://localhost:6001/item/get?id=1">商品详情页浏览</a>
      */
     @GetMapping("/get")
     public CommonReturnType getItem(@RequestParam(name = "id") Integer id) {
@@ -54,8 +55,7 @@ public class ItemController extends BaseController {
     }
 
     /**
-     * 商品列表页面浏览
-     * http://localhost:6001/item/list
+     * <a href="http://localhost:6001/item/list">商品列表页面浏览</a>
      */
     @RequestMapping(value = "/list", method = {RequestMethod.GET})
     public CommonReturnType listItem() {
@@ -72,7 +72,8 @@ public class ItemController extends BaseController {
             // 有正在进行或即将进行的秒杀活动
             itemVO.setPromoStatus(itemModel.getPromoModel().getStatus());
             itemVO.setPromoId(itemModel.getPromoModel().getId());
-            itemVO.setStartDate(itemModel.getPromoModel().getStartDate().toString(DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")));
+            itemVO.setStartDate(itemModel.getPromoModel().getStartDate()
+                    .toString(DateTimeFormat.forPattern("yyyy-MM" + "-dd HH:mm:ss")));
             itemVO.setPromoPrice(itemModel.getPromoModel().getPromoItemPrice());
         } else {
             itemVO.setPromoStatus(0);
